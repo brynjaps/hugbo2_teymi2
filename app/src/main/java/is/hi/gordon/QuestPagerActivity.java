@@ -33,7 +33,7 @@ public class QuestPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quest_pager);
+        setContentView(R.layout.activity_question_pager);
 
         UUID crimeId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_QUEST_ID);

@@ -3,7 +3,9 @@ package is.hi.gordon;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
+
 import java.util.UUID;
 
 /**
@@ -15,6 +17,7 @@ import java.util.UUID;
  * Módel klasi fyrir Question. Hlutir geymdir í töflunni questions
  */
 @Entity(tableName="questions")
+@TypeConverters({UUIDConverter.class})
 public class Question {
 
     @PrimaryKey

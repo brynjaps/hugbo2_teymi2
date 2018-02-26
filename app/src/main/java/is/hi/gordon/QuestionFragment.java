@@ -47,10 +47,10 @@ public class QuestionFragment  extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_QUEST_ID);
+        UUID questionId = (UUID) getArguments().getSerializable(ARG_QUEST_ID);
         // Ná í safnklasann úr gagnagrunni og ná í ákveðið question
         QuestLab questLab = QuestLabDB.get(getActivity()).getQuestLab();
-        mQuestion = QuestLab.getQuestion(questionId);
+        mQuestion = questLab.getQuest(questionId);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class QuestionFragment  extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_question, container, false);
 
-        mQuestField = (TextView) v.findViewById(R.id.quest_title);
+        mQuestField = (TextView) v.findViewById(R.id.quest_title_label);
         mQuestField.setText(mQuestion.getQuestTitle());
         mQuestField.addTextChangedListener(new TextWatcher() {
             @Override
