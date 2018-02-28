@@ -108,8 +108,8 @@ public class QuestListFragment extends Fragment {
 
     private void updateSubtitle() {
         // Ná í safnklasann og telja crime
-        QuestLab crimeLab = QuestLabDB.get(getActivity()).getQuestLab();
-        int questCount = crimeLab.getQuest().size();
+        QuestLab questLab = QuestLabDB.get(getActivity()).getQuestLab();
+        int questCount = questLab.getQuest().size();
         String subtitle = getString(R.string.subtitle_format, questCount);
 
         if (!mSubtitleVisible) {

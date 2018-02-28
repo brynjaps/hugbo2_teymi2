@@ -9,8 +9,8 @@ import android.arch.persistence.room.RoomDatabase;
 
 /***
  * Abstract klasi sem setur upp gagnagrunninn og segir hvaða módel hluti þú geymir
- * í gagnagrunninum, hér Crime.
- * Leyfir þér að ná í safnklasa fyrir Crime (hér CrimeLab)
+ * í gagnagrunninum, hér Question.
+ * Leyfir þér að ná í safnklasa fyrir Question (hér QuestLab)
  *
  */
 @Database(entities = {Question.class}, version = 1, exportSchema=false)
