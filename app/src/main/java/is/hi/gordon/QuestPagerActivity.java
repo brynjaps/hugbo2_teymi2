@@ -35,7 +35,7 @@ public class QuestPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_pager);
 
-        UUID crimeId = (UUID) getIntent()
+        UUID questId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_QUEST_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.quest_view_pager);
@@ -58,7 +58,7 @@ public class QuestPagerActivity extends AppCompatActivity {
         });
 
         for (int i = 0; i < mQuestion.size(); i++) {
-            if (mQuestion.get(i).getId().equals(crimeId)) {
+            if (mQuestion.get(i).getId().equals(questId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Gordon</string>
     <string name="quest_title_label">Question</string>
+    <string name="quest_hint_label">Write the question here</string>
     <string name="quest_always">Always</string>
     <string name="quest_usually">Usually</string>
     <string name="quest_sometimes">Sometimes</string>

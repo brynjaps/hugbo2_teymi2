@@ -58,7 +58,7 @@ public class QuestionFragment  extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_question, container, false);
 
-        mQuestField = v.findViewById(R.id.quest_title_label);
+        mQuestField = v.findViewById(R.id.quest_title);
         mQuestField.setText(mQuestion.getQuestTitle());
         mQuestField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -77,13 +77,13 @@ public class QuestionFragment  extends Fragment {
             }
         });
 
-        mAlwaysButton = v.findViewById(R.id.quest_always);
-        mAlwaysButton.setOnClickListener(new View.OnClickListener() {
+       // mAlwaysButton = v.findViewById(R.id.quest_always);
+      /*  mAlwaysButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             /*Gerist eitthvað*/
-            }
-        });
+       /*     }
+        });*/
 
         return v;
     }

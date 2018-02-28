@@ -165,8 +165,8 @@ public class QuestListFragment extends Fragment {
 
         private List<Question> mQuestions;
 
-        public QuestAdapter(List<Question> crimes) {
-            mQuestions = crimes;
+        public QuestAdapter(List<Question> questions) {
+            mQuestions = questions;
         }
 
         @Override
