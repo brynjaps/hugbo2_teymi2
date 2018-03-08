@@ -24,7 +24,7 @@ public class QuestPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private List<Question> mQuestion;
 
-    public static Intent newIntent(Context packageContext, UUID questionId) {
+    public static Intent newIntent(Context packageContext, Integer questionId) {
         Intent intent = new Intent(packageContext, QuestPagerActivity.class);
         intent.putExtra(EXTRA_QUEST_ID, questionId);
         return intent;
@@ -35,7 +35,7 @@ public class QuestPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_pager);
 
-        UUID questId = (UUID) getIntent()
+        Integer questId = (Integer) getIntent()
                 .getSerializableExtra(EXTRA_QUEST_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.quest_view_pager);

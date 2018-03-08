@@ -20,9 +20,9 @@ import java.util.UUID;
 @TypeConverters({UUIDConverter.class})
 public class Question {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private UUID mId;
+    private Integer mId;
     @ColumnInfo(name = "questTitle")
     private String mQuestTitle;
     @ColumnInfo(name = "always")
@@ -36,15 +36,11 @@ public class Question {
     @ColumnInfo(name="never")
     private  Integer mNever;
 
-    public Question() {
-        mId = UUID.randomUUID();
-    }
-
-    public UUID getId() {
+    public Integer getId() {
         return mId;
     }
 
-    public void setId(UUID uuid) {mId = uuid;}
+    public void setId(Integer id) {mId = id;}
 
     public String getQuestTitle() {
         return mQuestTitle;

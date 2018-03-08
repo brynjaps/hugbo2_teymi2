@@ -32,6 +32,7 @@ public class QuestLabDB {
         AppDataBase db = Room.databaseBuilder(context.getApplicationContext(),
                 AppDataBase.class, "quest-room")
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
 
         Log.i("QuestLabDB", "gagnagrunnur settur upp");
