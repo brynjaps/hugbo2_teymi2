@@ -99,26 +99,13 @@ public class QuestListFragment extends Fragment {
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
                 getActivity().invalidateOptionsMenu();
-                updateSubtitle();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void updateSubtitle() {
-        // Ná í safnklasann og telja crime
-        QuestLab questLab = QuestLabDB.get(getActivity()).getQuestLab();
-        int questCount = questLab.getQuest().size();
-        String subtitle = getString(R.string.subtitle_format, questCount);
-
-        if (!mSubtitleVisible) {
-            subtitle = null;
-        }
-
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.getSupportActionBar().setSubtitle(subtitle);
-    }
 
     private void updateUI() {
         // Ná í safnklasann og ná í öll question
@@ -132,7 +119,7 @@ public class QuestListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
 
-        updateSubtitle();
+
     }
 
     private class QuestHolder extends RecyclerView.ViewHolder

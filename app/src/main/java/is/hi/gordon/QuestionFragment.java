@@ -35,7 +35,7 @@ public class QuestionFragment  extends Fragment {
     private Button mRarelyButton;
     private Button mNeverButton;
 
-    public static QuestionFragment newInstance(UUID questionId) {
+    public static QuestionFragment newInstance(Integer questionId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_QUEST_ID, questionId);
 
@@ -47,7 +47,7 @@ public class QuestionFragment  extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID questionId = (UUID) getArguments().getSerializable(ARG_QUEST_ID);
+        Integer questionId = (Integer) getArguments().getSerializable(ARG_QUEST_ID);
         // Ná í safnklasann úr gagnagrunni og ná í ákveðið question
         QuestLab questLab = QuestLabDB.get(getActivity()).getQuestLab();
         mQuestion = questLab.getQuest(questionId);
@@ -58,32 +58,16 @@ public class QuestionFragment  extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_question, container, false);
 
-        mQuestField = v.findViewById(R.id.quest_title);
+        mQuestField = v.findViewById(R.id.quest_label);
         mQuestField.setText(mQuestion.getQuestTitle());
-        mQuestField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mQuestion.setQuestTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-       // mAlwaysButton = v.findViewById(R.id.quest_always);
-      /*  mAlwaysButton.setOnClickListener(new View.OnClickListener() {
+        mAlwaysButton = v.findViewById(R.id.quest_always);
+        mAlwaysButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             /*Gerist eitthvað*/
-       /*     }
-        });*/
+            }
+        });
 
         return v;
     }

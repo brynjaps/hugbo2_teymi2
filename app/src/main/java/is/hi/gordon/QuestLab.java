@@ -16,18 +16,16 @@ import java.util.UUID;
 
 /**
  * Safnklasi fyrir Question
- * Notar TypeConverters til að umbreyta Date yfir í String og UUID yfir í String
  * Getur náð í Questions, náð í eina Question, bætt við Question, uppfært Question og eytt út Question
  *
  */
-@TypeConverters({UUIDConverter.class})
 @Dao
 public interface QuestLab {
     @Query("SELECT * FROM questions")
     List<Question> getQuest();
 
-    @Query("SELECT * FROM questions WHERE mId = :uuid")
-    Question getQuest (UUID uuid);
+    @Query("SELECT * FROM questions WHERE mId = :id")
+    Question getQuest (Integer id);
 
     @Insert
     void insertAll(Question... question);
