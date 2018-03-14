@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by brynj on 08/03/2018.
@@ -19,9 +22,13 @@ import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    //path to database
     String DB_PATH = null;
-    private static String DB_NAME = "gordondb";
-    private SQLiteDatabase myDataBase;
+
+    //database name
+    private static final String DB_NAME = "gordondb";
+
+    private SQLiteDatabase gordonDB;
     private final Context myContext;
 
     public DatabaseHelper (Context context) {
@@ -31,10 +38,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.e("Path 1", DB_PATH);
     }
 
+    //creates database by copying database if database does not exist yet
     public void createDataBase() throws IOException {
         boolean dbExist = checkDataBase();
         if(dbExist) {
-        } else {
+        }
+        else {
             this.getReadableDatabase();
             try {
                 copyDataBase();
@@ -44,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //checks if database is there or not, returns true if it is, else false
     private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
         try {
@@ -57,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return checkDB != null ? true : false;
     }
 
+    //copies database from file in the folder assets
     private void copyDataBase() throws IOException {
         InputStream myInput = myContext.getAssets().open(DB_NAME);
         String outFileName = DB_PATH + DB_NAME;
@@ -71,15 +82,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         myInput.close();
     }
 
+    //opens database from given database path with given database name
     public void openDataBase() throws SQLException {
         String myPath = DB_PATH + DB_NAME;
-        myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        gordonDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
     }
 
+    //closes database
     @Override
     public synchronized void close() {
-        if (myDataBase != null)
-            myDataBase.close();
+        if (gordonDB != null)
+            gordonDB.close();
         super.close();
     }
 
@@ -87,6 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate (SQLiteDatabase db) {
     }
 
+    //upgrades database
     @Override
     public void onUpgrade (SQLiteDatabase db, int oldVersion, int newVersion) {
         if (newVersion > oldVersion)
@@ -96,11 +110,92 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
     }
-
+/*
     public Cursor query(String table, String[] columns, String selection, String [] selectionArgs,
                         String groupBy, String having, String orderBy) {
-        return myDataBase.query("questions", null, null, null, null, null, null);
+        return gordonDB.query("questions", null, null, null, null, null, null);
+    }*/
+
+    //add a new question
+    public void addQuest(Question quest) {
+        //virkni kemur seinna
     }
 
+    //get all questions
+    public List<Question> getAllQuest () {
+        List<Question> questList = new ArrayList<>();
 
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //select all from table
+        Cursor cursor = db.query("questions", null, null, null, null, null, null);
+
+        //looping through all the rows and adding to questList
+        if(cursor.moveToFirst()) {
+            do {
+                Question quest = new Question();
+                quest.setId(cursor.getInt(0));
+                quest.setQuestTitle(cursor.getString(1));
+                quest.setAlways(cursor.getInt(2));
+                quest.setUsually(cursor.getInt(3));
+                quest.setSometimes(cursor.getInt(4));
+                quest.setRarely(cursor.getInt(5));
+                quest.setNever(cursor.getInt(6));
+                questList.add(quest);
+            } while (cursor.moveToNext());
+        }
+        return questList;
+    }
+
+    //get score of users answer
+    public int usersScore(String answer, int id) {
+
+       // String [] answerArray = new String [] {};
+
+       /* String [] tableColumns = new String[] {
+                "column1",
+                "(SELECT" + answer[0] + "(column1) FROM questions AS answer"
+        };
+
+        String whereClause = "_id = id";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //selects everything in table questions that is in the answer column and has _id = id
+        Cursor cursor = db.query("questions", tableColumns, whereClause , null, null, null, null);
+
+        for(int i = 0; i < cursor.getCount(); i++) {
+            answerArray[i] = cursor.getString(i);
+        }
+*/
+        String query = "SELECT " + answer + " FROM questions WHERE  _id = " + id;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        ArrayList<String> answerScore = new ArrayList<String>();
+        while(!cursor.isAfterLast()) {
+            answerScore.add(cursor.getString(cursor.getColumnIndex(answer)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        String [] answerArray = answerScore.toArray(new String[answerScore.size()]);
+
+        //creates integer array
+        int[] intArray = new int[answerArray.length];
+
+        //parses the integer for each string
+        for(int i = 0; i < intArray.length; i++) {
+            intArray[i] = Integer.parseInt(answerArray[i]);
+        }
+
+        //int we want to have the answer in
+        int intAnswer = 0;
+
+        //takes all the integers in the array and sums them up in one variable
+        for(int i = 0; i < intArray.length; i++) {
+            intAnswer += intArray[i];
+        }
+
+        return intAnswer;
+    }
 }

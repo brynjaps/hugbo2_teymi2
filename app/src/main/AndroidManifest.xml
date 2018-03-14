@@ -15,8 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".QuestPagerActivity"
-            android:parentActivityName=".QuestListActivity">
+        <activity android:name=".QuestActivity"
+            android:parentActivityName=".CopyDbActivity">
+        </activity>
+        <activity android:name=".ResultActivity"
+            android:parentActivityName=".QuestActivity">
         </activity>
     </application>
 
