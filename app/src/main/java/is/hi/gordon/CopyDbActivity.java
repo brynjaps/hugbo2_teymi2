@@ -1,5 +1,6 @@
 package is.hi.gordon;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import java.io.IOException;
 
 public class CopyDbActivity extends AppCompatActivity {
 
-    Cursor c = null;
+    //Cursor c = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,13 @@ public class CopyDbActivity extends AppCompatActivity {
                     throw sqle;
                 }
                 Toast.makeText(CopyDbActivity.this, "Successfully Imported", Toast.LENGTH_SHORT).show();
-                c = myDbHelper.query("questions", null, null, null, null, null, null);
+
+                //when data from database has been successfully imported go to QuestActivity class
+                Intent intent = new Intent(CopyDbActivity.this, QuestActivity.class);
+                startActivity(intent);
+                finish();
+
+                /*c = myDbHelper.query("questions", null, null, null, null, null, null);
                 if (c.moveToFirst()) {
                     do {
                         Toast.makeText(CopyDbActivity.this,
@@ -56,7 +63,7 @@ public class CopyDbActivity extends AppCompatActivity {
                                         "never:  " + c.getString(6),
                                 Toast.LENGTH_LONG).show();
                     } while (c.moveToNext());
-                }
+                }*/
             }
         });
 

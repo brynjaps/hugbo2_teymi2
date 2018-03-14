@@ -17,7 +17,6 @@ import java.util.UUID;
  * Módel klasi fyrir Question. Hlutir geymdir í töflunni questions
  */
 @Entity(tableName="questions")
-@TypeConverters({UUIDConverter.class})
 public class Question {
 
     @PrimaryKey(autoGenerate = true)
@@ -35,6 +34,26 @@ public class Question {
     private Integer mRarely;
     @ColumnInfo(name="never")
     private  Integer mNever;
+
+    public Question() {
+        mId = 0;
+        mQuestTitle = "";
+        mAlways = 0;
+        mUsually =0;
+        mSometimes = 0;
+        mRarely = 0;
+        mNever = 0;
+    }
+
+    public Question (String question, Integer always, Integer usually, Integer sometimes, Integer
+                     rarely, Integer never) {
+        mQuestTitle = question;
+        mAlways = always;
+        mUsually = usually;
+        mSometimes = sometimes;
+        mRarely = rarely;
+        mNever = never;
+    }
 
     public Integer getId() {
         return mId;
