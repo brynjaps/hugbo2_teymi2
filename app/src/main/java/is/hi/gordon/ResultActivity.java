@@ -3,6 +3,8 @@ package is.hi.gordon;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -40,6 +42,13 @@ public class ResultActivity extends Activity {
 
         //display score
         textScore.setText(scoreString + " af " + highTotal +" stigum mögulegum");
+
+        ((Button) findViewById(R.id.close_app)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+            }
+        });
     }
 
     @Override

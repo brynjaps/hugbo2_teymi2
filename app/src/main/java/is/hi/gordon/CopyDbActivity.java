@@ -49,21 +49,6 @@ public class CopyDbActivity extends AppCompatActivity {
                 Intent intent = new Intent(CopyDbActivity.this, QuestActivity.class);
                 startActivity(intent);
                 finish();
-
-                /*c = myDbHelper.query("questions", null, null, null, null, null, null);
-                if (c.moveToFirst()) {
-                    do {
-                        Toast.makeText(CopyDbActivity.this,
-                                "_id: " + c.getString(0) + "\n" +
-                                        "question: " + c.getString(1) + "\n" +
-                                        "always: " + c.getString(2) + "\n" +
-                                        "usually:  " + c.getString(3) + "\n" +
-                                        "sometimes:  " + c.getString(4) + "\n" +
-                                        "rarely:  " + c.getString(5) + "\n" +
-                                        "never:  " + c.getString(6),
-                                Toast.LENGTH_LONG).show();
-                    } while (c.moveToNext());
-                }*/
             }
         });
 
