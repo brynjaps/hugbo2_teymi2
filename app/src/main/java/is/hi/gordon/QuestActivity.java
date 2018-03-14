@@ -28,8 +28,10 @@ public class QuestActivity extends Activity{
     List<Question> questList;
     int score = 0;
     int questId = 0;
+    int totalQuest = 28;
 
     Question currentQuest;
+    TextView numbQuest;
     TextView questLabel;
     RadioButton always, usually, sometimes, rarely, never;
     Button nextButton;
@@ -47,6 +49,7 @@ public class QuestActivity extends Activity{
         //gets the id of question number 1
         currentQuest = questList.get(questId);
 
+        numbQuest = (TextView)findViewById(R.id.numb_quest);
         questLabel = (TextView)findViewById(R.id.quest_label);
         always = (RadioButton)findViewById(R.id.always);
         usually = (RadioButton)findViewById(R.id.usually);
@@ -123,7 +126,8 @@ public class QuestActivity extends Activity{
 
     //changes to the next question
     private void ChangeQuest() {
-        questLabel.setText(currentQuest.getQuestTitle());
+        numbQuest.setText(currentQuest.getId() + "/" + totalQuest);
+        questLabel.setText(currentQuest.getId()+ ". " + currentQuest.getQuestTitle());
         questId++;
     }
 }

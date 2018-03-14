@@ -11,16 +11,29 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/numb_quest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/numb_quest"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="17dp" />
+
+        <TextView
             android:id="@+id/quest_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/quest_title_label"
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
         <RadioGroup
             android:id="@+id/options"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.04" >
+            android:layout_height="174dp"
+            android:layout_weight="0.04">
 
             <RadioButton
                 android:id="@+id/always"
