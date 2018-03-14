@@ -43,9 +43,11 @@ public class ResultActivity extends Activity {
         //display score
         textScore.setText(scoreString + " af " + highTotal +" stigum mögulegum");
 
+        //when button is pressed the app closes
         ((Button) findViewById(R.id.close_app)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //exits app
                 System.exit(0);
             }
         });
