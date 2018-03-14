@@ -55,4 +55,13 @@
         android:drawableLeft="@drawable/ic_action_pass"
         android:inputType="textPassword" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        android:text="Nýskráning" />
+
 </RelativeLayout>
