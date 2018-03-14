@@ -16,13 +16,12 @@ import java.io.IOException;
 
 /**
  * Created by brynj on 08/03/2018.
+ * A class that copies the database into the app and lets know when it is done
  */
 
 
 
 public class CopyDbActivity extends AppCompatActivity {
-
-    //Cursor c = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,8 @@ public class CopyDbActivity extends AppCompatActivity {
                 } catch (SQLException sqle) {
                     throw sqle;
                 }
+
+                //lets know when data has successfully been imported to app
                 Toast.makeText(CopyDbActivity.this, "Successfully Imported", Toast.LENGTH_SHORT).show();
 
                 //when data from database has been successfully imported go to QuestActivity class

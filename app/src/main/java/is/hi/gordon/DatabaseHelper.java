@@ -12,12 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * Created by brynj on 08/03/2018.
+ *
+ * A class that creates functions to be used for the database and sets basic things for the database
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -110,11 +111,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
     }
-/*
-    public Cursor query(String table, String[] columns, String selection, String [] selectionArgs,
-                        String groupBy, String having, String orderBy) {
-        return gordonDB.query("questions", null, null, null, null, null, null);
-    }*/
 
     //add a new question
     public void addQuest(Question quest) {
@@ -150,27 +146,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //get score of users answer
     public int usersScore(String answer, int id) {
 
-       // String [] answerArray = new String [] {};
-
-       /* String [] tableColumns = new String[] {
-                "column1",
-                "(SELECT" + answer[0] + "(column1) FROM questions AS answer"
-        };
-
-        String whereClause = "_id = id";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        //selects everything in table questions that is in the answer column and has _id = id
-        Cursor cursor = db.query("questions", tableColumns, whereClause , null, null, null, null);
-
-        for(int i = 0; i < cursor.getCount(); i++) {
-            answerArray[i] = cursor.getString(i);
-        }
-*/
+        //query to get the database object from the answer, given parameter, column in the questions
+        // table with an id that equals the id given
         String query = "SELECT " + answer + " FROM questions WHERE  _id = " + id;
+
+        //get a readable database
         SQLiteDatabase db = this.getReadableDatabase();
+
+        //create a cursor to handle the raw database objects
         Cursor cursor = db.rawQuery(query, null);
+
+        //take database objects from the cursor and put into an array
         cursor.moveToFirst();
         ArrayList<String> answerScore = new ArrayList<String>();
         while(!cursor.isAfterLast()) {

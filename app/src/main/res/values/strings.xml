@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">Gordon</string>
     <string name="quest_title_label">Spurning</string>
-    <string name="quest_hint_label">Write the question here</string>
     <string name="quest_always">Alltaf</string>
     <string name="quest_usually">Venjulega</string>
     <string name="quest_sometimes">Stundum</string>
     <string name="quest_rarely">Sjaldan</string>
     <string name="quest_never">Aldrei</string>
-    <string name="new_quest">New Question</string>
-    <string name="show_subtitle">Show Subtitle</string>
-    <string name="hide_subtitle">Hide Subtitle</string>
     <string name="login_button">Skrá inn</string>
     <string name="next_button">Áfram</string>
     <string name="score_text">Niðurstöður þínar í könnuninni</string>
