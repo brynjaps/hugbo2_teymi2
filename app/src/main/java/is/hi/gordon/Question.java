@@ -3,19 +3,15 @@ package is.hi.gordon;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
-
-import java.util.UUID;
 
 /**
  * Created by brynj on 26/02/2018.
- */
-
-
-/***
+ *
  * Módel klasi fyrir Question. Hlutir geymdir í töflunni questions
+ *
  */
+
 @Entity(tableName="questions")
 public class Question {
 

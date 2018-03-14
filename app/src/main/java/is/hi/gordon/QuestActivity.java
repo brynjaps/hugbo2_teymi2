@@ -55,7 +55,7 @@ public class QuestActivity extends Activity{
         never = (RadioButton)findViewById(R.id.never);
         nextButton = (Button)findViewById(R.id.btn_next);
 
-        //change to the next question
+        //changes to the next question
         ChangeQuest();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +94,6 @@ public class QuestActivity extends Activity{
                 //add the score from option picked to the score the player has
                 score += dbHelp.usersScore(answerString,currentQuest.getId());
 
-                Log.d("score", "Your score"+ score);
-
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
                 if(questId < 2) { //will be changed to 29, but currently only 2 questions in database
@@ -123,6 +121,7 @@ public class QuestActivity extends Activity{
         return true;
     }
 
+    //changes to the next question
     private void ChangeQuest() {
         questLabel.setText(currentQuest.getQuestTitle());
         questId++;
