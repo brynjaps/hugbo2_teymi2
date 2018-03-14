@@ -10,11 +10,29 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="54dp" />
+
+        <TextView
+            android:id="@+id/thank_you"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/thank_you"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="99dp" />
+
         <TextView
             android:id="@+id/scoreText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/score_text"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
@@ -22,7 +40,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/score"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" /><![CDATA[
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="109dp" />
+
+        <Button
+            android:id="@+id/close_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/close_app" /><![CDATA[
 
         android:inputType="number" />
 
