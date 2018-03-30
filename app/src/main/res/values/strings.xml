@@ -7,7 +7,8 @@
     <string name="quest_rarely">Sjaldan</string>
     <string name="quest_never">Aldrei</string>
     <string name="login_button">Skrá inn</string>
-    <string name="next_button">Áfram</string>
+    <string name="next_button">Næsta</string>
+    <string name="back_button">Fyrri</string>
     <string name="score_text">Niðurstöður þínar í könnuninni</string>
     <string name="score">Stig</string>
     <string name="thank_you">Þú hefur nú lokið þátttöku þinni í þessari könnun. Takk fyrir.</string>

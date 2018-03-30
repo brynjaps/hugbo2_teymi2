@@ -27,14 +27,17 @@ import android.widget.TextView;
 public class QuestActivity extends Activity{
     List<Question> questList;
     int score = 0;
+    int questScore = 0;
     int questId = 0;
     int totalQuest = 28;
 
     Question currentQuest;
+    Question prevQuest;
     TextView numbQuest;
     TextView questLabel;
     RadioButton always, usually, sometimes, rarely, never;
     Button nextButton;
+    Button prevButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class QuestActivity extends Activity{
         //gets the id of question number 1
         currentQuest = questList.get(questId);
 
+        //get the id of question before current question
+        //prevQuest = questList.get(questId-1);
+
         numbQuest = (TextView)findViewById(R.id.numb_quest);
         questLabel = (TextView)findViewById(R.id.quest_label);
         always = (RadioButton)findViewById(R.id.always);
@@ -57,10 +63,18 @@ public class QuestActivity extends Activity{
         rarely = (RadioButton)findViewById(R.id.rarely);
         never = (RadioButton)findViewById(R.id.never);
         nextButton = (Button)findViewById(R.id.btn_next);
+        prevButton = (Button)findViewById(R.id.btn_back);
 
         //changes to the next question
-        ChangeQuest();
+        NextQuest();
 
+        /*if(questId > 1) {
+            prevButton.setEnabled(true);
+        } else {
+            prevButton.setEnabled(false);
+        }*/
+
+        //when next button ("næsta") is clicked
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,14 +108,17 @@ public class QuestActivity extends Activity{
                     answerString = "never";
                 }
 
+                //score from question
+                questScore = dbHelp.usersScore(answerString,currentQuest.getId());
+
                 //add the score from option picked to the score the player has
-                score += dbHelp.usersScore(answerString,currentQuest.getId());
+                score += questScore;
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
-                if(questId < 2) { //will be changed to 29, but currently only 2 questions in database
+                if(questId < 2) { //will be changed to 28, but currently only 2 questions in database
                     currentQuest = questList.get(questId);
-                    ChangeQuest();
+                    NextQuest();
                 } else {
                     Intent intent = new Intent(QuestActivity.this, ResultActivity.class);
                     Bundle bundle = new Bundle();
@@ -114,6 +131,23 @@ public class QuestActivity extends Activity{
                 }
             }
         });
+
+        //when prev button ("fyrri") is clicked
+        /*prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //minus the score from option last picked from the score the player has
+                score -= questScore;
+
+                //if we haven't gone through every question we go to the next one, else send your
+                //score to the result page
+                if(questId > 1) {
+                    prevQuest = questList.get(questId-1);
+                    PreviousQuest();
+                }
+            }
+        });*/
     }
 
     @Override
@@ -125,9 +159,16 @@ public class QuestActivity extends Activity{
     }
 
     //changes to the next question
-    private void ChangeQuest() {
+    private void NextQuest() {
         numbQuest.setText(currentQuest.getId() + "/" + totalQuest);
         questLabel.setText(currentQuest.getId()+ ". " + currentQuest.getQuestTitle());
         questId++;
+    }
+
+    //changes to the previous question
+    private void PreviousQuest() {
+        numbQuest.setText(prevQuest.getId() + "/" + totalQuest);
+        questLabel.setText(prevQuest.getId()+ ". " + prevQuest.getQuestTitle());
+        questId--;
     }
 }
