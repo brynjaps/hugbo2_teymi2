@@ -184,4 +184,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return intAnswer;
     }
+
+
+    //get all admins
+    public List<Admin> getAllAdmins () {
+        List<Admin> adminList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //select all from table
+        Cursor cursor = db.query("admin", null, null, null, null, null, null);
+
+        //looping through all the rows and adding to adminList
+        if(cursor.moveToFirst()) {
+            do {
+                Admin ad = new Admin();
+                ad.setId(cursor.getInt(0));
+                ad.setUsername(cursor.getString(1));
+                ad.setPassword(cursor.getString(2));
+                adminList.add(ad);
+            } while (cursor.moveToNext());
+        }
+        return adminList;
+    }
 }
