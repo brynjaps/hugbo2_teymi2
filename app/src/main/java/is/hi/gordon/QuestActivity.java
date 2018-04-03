@@ -29,6 +29,7 @@ public class QuestActivity extends Activity{
     int score = 0;
     int questScore = 0;
     int questId = 0;
+    int prevQuestId = 0;
     int totalQuest = 28;
 
     Question currentQuest;
@@ -52,9 +53,6 @@ public class QuestActivity extends Activity{
         //gets the id of question number 1
         currentQuest = questList.get(questId);
 
-        //get the id of question before current question
-        //prevQuest = questList.get(questId-1);
-
         numbQuest = (TextView)findViewById(R.id.numb_quest);
         questLabel = (TextView)findViewById(R.id.quest_label);
         always = (RadioButton)findViewById(R.id.always);
@@ -65,14 +63,12 @@ public class QuestActivity extends Activity{
         nextButton = (Button)findViewById(R.id.btn_next);
         prevButton = (Button)findViewById(R.id.btn_back);
 
+        Log.d("questId","questId at first= "+questId);
+
         //changes to the next question
         NextQuest();
 
-        /*if(questId > 1) {
-            prevButton.setEnabled(true);
-        } else {
-            prevButton.setEnabled(false);
-        }*/
+        Log.d("questId","questId after first nextquest= "+questId);
 
         //when next button ("næsta") is clicked
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +110,21 @@ public class QuestActivity extends Activity{
                 //add the score from option picked to the score the player has
                 score += questScore;
 
+                Log.d("questScore","questScore in next= "+questScore);
+
+                Log.d("score","score= "+score);
+
+                Log.d("questId","questId áður en valið= "+questId);
+
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
                 if(questId < 2) { //will be changed to 28, but currently only 2 questions in database
                     currentQuest = questList.get(questId);
+                    Log.d("questId","questId 1.0= "+questId);
                     NextQuest();
+                    Log.d("questId","questId= "+questId);
                 } else {
+                    Log.d("questId","eftir 2 questId= "+questId);
                     Intent intent = new Intent(QuestActivity.this, ResultActivity.class);
                     Bundle bundle = new Bundle();
                     //put the users score into a bundle
@@ -133,21 +138,27 @@ public class QuestActivity extends Activity{
         });
 
         //when prev button ("fyrri") is clicked
-        /*prevButton.setOnClickListener(new View.OnClickListener() {
+        prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Log.d("questScore","questScore in prev= "+questScore);
+
                 //minus the score from option last picked from the score the player has
-                score -= questScore;
+                score = score - questScore;
+
+                Log.d("prevScore","score in prev= "+questScore);
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
                 if(questId > 1) {
-                    prevQuest = questList.get(questId-1);
+                    questId = questId - 2;
+                    Log.d("prevQuestId","prevQuestId= "+questId);
+                    currentQuest = questList.get(questId);
                     PreviousQuest();
                 }
             }
-        });*/
+        });
     }
 
     @Override
@@ -162,13 +173,25 @@ public class QuestActivity extends Activity{
     private void NextQuest() {
         numbQuest.setText(currentQuest.getId() + "/" + totalQuest);
         questLabel.setText(currentQuest.getId()+ ". " + currentQuest.getQuestTitle());
+        Log.d("questId","questId í fyrsta nextquest= "+questId);
         questId++;
+        Log.d("questId","questId í fyrsta nextquest (eftir hækkun)= "+questId);
+        /*if(questId > 1) {
+            prevButton.setEnabled(true);
+        } else {
+            prevButton.setEnabled(false);
+        }*/
     }
 
     //changes to the previous question
     private void PreviousQuest() {
-        numbQuest.setText(prevQuest.getId() + "/" + totalQuest);
-        questLabel.setText(prevQuest.getId()+ ". " + prevQuest.getQuestTitle());
-        questId--;
+        numbQuest.setText(currentQuest.getId() + "/" + totalQuest);
+        Log.d("","currentQuestID= "+currentQuest.getId());
+        questLabel.setText(currentQuest.getId()+ ". " + currentQuest.getQuestTitle());
+        /*if(questId > 1) {
+            prevButton.setEnabled(true);
+        } else {
+            prevButton.setEnabled(false);
+        }*/
     }
 }
