@@ -16,7 +16,8 @@
         android:layout_marginBottom="144dp"
         android:text="@string/login_button"
         tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="260dp" />
+        tools:layout_editor_absoluteY="260dp"
+        android:background="@android:color/white"/>
 
     <ImageView
         android:id="@+id/logo"
