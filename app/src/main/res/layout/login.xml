@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity" >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/gradient">
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="144dp"
+        android:text="@string/login_button"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="260dp"
+        android:background="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/user"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="54dp"
+        app:srcCompat="@drawable/gordon_logo" />
+
+    <EditText
+        android:id="@+id/user"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/pass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="#11000000"
+        android:ems="10"
+        android:hint="Notendanafn"
+        android:inputType="textPersonName"
+        android:textSize="16dp"
+        android:drawableLeft="@drawable/ic_action_user"/>
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/user"
+        android:layout_alignStart="@+id/user"
+        android:layout_centerVertical="true"
+        android:background="#11000000"
+        android:ems="10"
+        android:hint="Lykilord"
+        android:drawableLeft="@drawable/ic_action_pass"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/new_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/login_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        android:text="Nýskráning" />
+  
+    <TextView
+        android:id="@+id/ErrorLogin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/username"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteY="134dp" />
-
-        <EditText
-            android:id="@+id/pass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            tools:layout_editor_absoluteY="201dp" />
-
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_button"
-            tools:layout_editor_absoluteX="144dp"
-            tools:layout_editor_absoluteY="260dp" />
-
-        <TextView
-            android:id="@+id/ErrorLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/questionBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/questionBtn" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/questionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/questionBtn" />
 </RelativeLayout>

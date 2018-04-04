@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity" >
+    tools:context=".ResultActivity"
+    android:background="@drawable/gradient">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,12 +21,15 @@
             android:layout_height="wrap_content"
             android:text="@string/thank_you"
             android:textAlignment="center"
+            android:gravity= "center"
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textColor="@android:color/white"/>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="99dp" />
+            android:layout_height="99dp"
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/scoreText"
@@ -33,7 +37,9 @@
             android:layout_height="wrap_content"
             android:text="@string/score_text"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:gravity= "center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/score"
@@ -41,16 +47,20 @@
             android:layout_height="wrap_content"
             android:text="@string/score"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            android:gravity= "center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/white"/>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="109dp" />
+            android:layout_height="109dp"
+            android:textColor="@android:color/white"/>
 
         <Button
             android:id="@+id/close_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:text="@string/close_app" /><![CDATA[
 
         android:inputType="number" />
