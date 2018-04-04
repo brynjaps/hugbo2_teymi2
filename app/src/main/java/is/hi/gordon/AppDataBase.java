@@ -13,7 +13,7 @@ import android.arch.persistence.room.RoomDatabase;
  * Leyfir þér að ná í safnklasa fyrir Question (hér QuestLab)
  *
  */
-@Database(entities = {Question.class}, version = 2)
+@Database(entities = {Question.class}, version = 5)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract QuestLab questLab();
 }

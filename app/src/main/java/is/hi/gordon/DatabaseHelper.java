@@ -33,9 +33,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final Context myContext;
 
     public DatabaseHelper (Context context) {
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, 6);
         this.myContext = context;
-        this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "databases/";
+        this.DB_PATH = this.myContext.getDatabasePath(DB_NAME).getAbsolutePath();;
         Log.e("Path 1", DB_PATH);
     }
 
@@ -187,24 +187,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //get all admins
-    public List<Admin> getAllAdmins () {
-        List<Admin> adminList = new ArrayList<>();
+    public String[] getAdmin (String user, String password) {
 
+        //query to find out if user exists in the table and if password is password where username
+        //is user
+        String query = "SELECT * FROM admin WHERE username = '" + user + "'";
+
+        //get a readable database
         SQLiteDatabase db = this.getReadableDatabase();
 
-        //select all from table
-        Cursor cursor = db.query("admin", null, null, null, null, null, null);
+        //create a cursor to handle the raw database objects
+        Cursor cursor = db.rawQuery(query, null);
 
-        //looping through all the rows and adding to adminList
-        if(cursor.moveToFirst()) {
-            do {
-                Admin ad = new Admin();
-                ad.setId(cursor.getInt(0));
-                ad.setUsername(cursor.getString(1));
-                ad.setPassword(cursor.getString(2));
-                adminList.add(ad);
-            } while (cursor.moveToNext());
+        //take database objects from the cursor and put into an array
+        cursor.moveToFirst();
+        ArrayList<String> usersAList = new ArrayList<String>();
+        while(!cursor.isAfterLast()) {
+            usersAList.add(cursor.getString(cursor.getColumnIndex(user)));
+            cursor.moveToNext();
         }
-        return adminList;
+        cursor.close();
+        String [] userArray = usersAList.toArray(new String[usersAList.size()]);
+
+        return userArray;
     }
 }

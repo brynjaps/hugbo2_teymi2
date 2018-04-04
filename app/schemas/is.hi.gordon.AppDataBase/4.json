@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "5709660a8500186ba11ed32873ef2ba2",
+    "entities": [
+      {
+        "tableName": "questions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `questTitle` TEXT, `always` INTEGER, `usually` INTEGER, `sometimes` INTEGER, `rarely` INTEGER, `never` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "mId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mQuestTitle",
+            "columnName": "questTitle",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mAlways",
+            "columnName": "always",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mUsually",
+            "columnName": "usually",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mSometimes",
+            "columnName": "sometimes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mRarely",
+            "columnName": "rarely",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mNever",
+            "columnName": "never",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5709660a8500186ba11ed32873ef2ba2\")"
+    ]
+  }
+}
