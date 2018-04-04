@@ -27,13 +27,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String DB_PATH = null;
 
     //database name
-    private static final String DB_NAME = "gordondb_2.0";
+    private static final String DB_NAME = "gordondb";
 
     private SQLiteDatabase gordonDB;
     private final Context myContext;
 
     public DatabaseHelper (Context context) {
-        super(context, DB_NAME, null, 10);
+        super(context, DB_NAME, null, 11);
         this.myContext = context;
         this.DB_PATH = this.myContext.getDatabasePath(DB_NAME).getAbsolutePath();;
         Log.e("Path 1", DB_PATH);
@@ -191,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //query to find out if user exists in the table and if password is password where username
         //is user
-        String query = "SELECT * FROM admin WHERE username = '" + user + "'";
+        String query = "SELECT * FROM adminTable WHERE username = '" + user + "'";
 
         //get a readable database
         SQLiteDatabase db = this.getReadableDatabase();

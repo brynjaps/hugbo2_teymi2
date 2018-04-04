@@ -15,4 +15,14 @@
     <string name="numb_quest">Númer spurningar</string>
     <string name="username">Notendanafn</string>
     <string name="password">Lykilorð</string>
+    <string name="skodaLista">Skoða lista af fyrirtækjum</string>
+    <string name="skodaNidur">Skoða niðurstöður fyrirtækja</string>
+    <string name="addButton">Bæta við</string>
+    <string name="changeButton">Breyta</string>
+    <string name="deleteButton">Eyða</string>
+    <string name="searchText">Leit</string>
+    <string name="searchBtn">Leita</string>
+    <string name="goBackBtn">Til baka</string>
+    <string name="signOutBtn">Útskrá</string>
+    <string name="questionBtn">Fara í spurningar</string>
 </resources>

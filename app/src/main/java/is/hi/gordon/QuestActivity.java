@@ -94,7 +94,7 @@ public class QuestActivity extends Activity{
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
-                if(questId < 3) { //will be changed to 28, but currently only 3 questions in database
+                if(questId < 2) { //will be changed to 28, but currently only 2 questions in database
                     currentQuest = questList.get(questId);
                     ChangeQuest();
                 } else {

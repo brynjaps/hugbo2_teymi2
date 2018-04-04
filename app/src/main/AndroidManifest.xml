@@ -24,6 +24,12 @@
         <activity android:name=".AdminActivity"
             android:parentActivityName=".LoginActivity">
         </activity>
+        <activity android:name=".CompanyListActivity"
+            android:parentActivityName=".AdminActivity">
+        </activity>
+        <activity android:name=".CompanyResultActivity"
+            android:parentActivityName=".AdminActivity">
+        </activity>
     </application>
 
 </manifest>
