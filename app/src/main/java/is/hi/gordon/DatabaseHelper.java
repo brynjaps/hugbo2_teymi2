@@ -33,9 +33,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final Context myContext;
 
     public DatabaseHelper (Context context) {
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, 11);
         this.myContext = context;
-        this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "databases/";
+        this.DB_PATH = this.myContext.getDatabasePath(DB_NAME).getAbsolutePath();;
         Log.e("Path 1", DB_PATH);
     }
 
@@ -104,12 +104,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //upgrades database
     @Override
     public void onUpgrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion)
+        /*if (newVersion > oldVersion)
             try {
                 copyDataBase();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
     }
 
     //add a new question
@@ -183,5 +183,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return intAnswer;
+    }
+
+
+    //get all admins
+    public String[] getAdmin (String user, String password) {
+
+        //query to find out if user exists in the table and if password is password where username
+        //is user
+        String query = "SELECT * FROM adminTable WHERE username = '" + user + "'";
+
+        //get a readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //create a cursor to handle the raw database objects
+        Cursor cursor = db.rawQuery(query, null);
+
+        //take database objects from the cursor and put into an array
+        cursor.moveToFirst();
+        ArrayList<String> usersAList = new ArrayList<String>();
+        while(!cursor.isAfterLast()) {
+            usersAList.add(cursor.getString(cursor.getColumnIndex(user)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        String [] userArray = usersAList.toArray(new String[usersAList.size()]);
+
+        return userArray;
     }
 }

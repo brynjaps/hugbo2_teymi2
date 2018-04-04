@@ -1,14 +1,9 @@
 package is.hi.gordon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -99,7 +94,7 @@ public class QuestActivity extends Activity{
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
-                if(questId < 2) { //will be changed to 29, but currently only 2 questions in database
+                if(questId < 2) { //will be changed to 28, but currently only 2 questions in database
                     currentQuest = questList.get(questId);
                     ChangeQuest();
                 } else {

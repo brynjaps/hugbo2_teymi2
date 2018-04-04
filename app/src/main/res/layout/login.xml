@@ -64,5 +64,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="73dp"
         android:text="Nýskráning" />
+  
+    <TextView
+        android:id="@+id/ErrorLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/questionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/questionBtn" />
 </RelativeLayout>
