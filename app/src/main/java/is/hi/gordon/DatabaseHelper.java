@@ -27,13 +27,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String DB_PATH = null;
 
     //database name
-    private static final String DB_NAME = "gordondb";
+    private static final String DB_NAME = "gordondb_2.0";
 
     private SQLiteDatabase gordonDB;
     private final Context myContext;
 
     public DatabaseHelper (Context context) {
-        super(context, DB_NAME, null, 6);
+        super(context, DB_NAME, null, 10);
         this.myContext = context;
         this.DB_PATH = this.myContext.getDatabasePath(DB_NAME).getAbsolutePath();;
         Log.e("Path 1", DB_PATH);
@@ -104,12 +104,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //upgrades database
     @Override
     public void onUpgrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion)
+        /*if (newVersion > oldVersion)
             try {
                 copyDataBase();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
     }
 
     //add a new question
