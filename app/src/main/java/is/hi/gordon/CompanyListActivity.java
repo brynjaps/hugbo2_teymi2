@@ -31,6 +31,26 @@ public class CompanyListActivity extends Activity{
             }
         });
 
+        //when button is clicked admin can add another company to the list
+        ((Button) findViewById(R.id.addBtn)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CompanyListActivity.this, AddCompanyActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //when button is clicked the admin can change the company info
+        ((Button) findViewById(R.id.changeBtn)).setOnClickListener(new View.OnClickListener() {
+            //virkni kemur síðar sem leyfir admin að breyta upplýsingum um fyrirtæki
+        });
+
+        //when button is clicked the admin can delete the company from the list
+        ((Button) findViewById(R.id.deleteBtn)).setOnClickListener(new View.OnClickListener() {
+            //virkni kemur síðar sem leyfir admin að eyða fyrirtæki af listanum
+        });
+
     }
 
     @Override

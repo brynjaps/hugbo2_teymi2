@@ -10,31 +10,22 @@ import android.widget.Button;
 /**
  * Created by brynj on 04/04/2018.
  *
- * A class that gives the admin an opportunity to search for results of a company
+ * A class that makes it possible for admin to add companies to the company list
  *
  */
 
-public class CompanyResultActivity extends Activity {
+public class AddCompanyActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_result);
 
-        //when button is clicked it searches for all companies that the search could involve and
-        //shows them and their result
-        ((Button) findViewById(R.id.searchBtn)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //kemur virkni seinna til að leita af fyrirtækjum
-            }
-        });
-
         //when button is clicked the user goes back to the admin page
         ((Button) findViewById(R.id.goBackBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CompanyResultActivity.this, AdminActivity.class);
+                Intent intent = new Intent(AddCompanyActivity.this, CompanyListActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -50,4 +41,3 @@ public class CompanyResultActivity extends Activity {
         return true;
     }
 }
-
