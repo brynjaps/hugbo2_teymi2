@@ -30,6 +30,9 @@
         <activity android:name=".CompanyResultActivity"
             android:parentActivityName=".AdminActivity">
         </activity>
+        <activity android:name=".AddCompanyActivity"
+            android:parentActivityName=".CompanyListActivity">
+        </activity>
     </application>
 
 </manifest>

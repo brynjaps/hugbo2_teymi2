@@ -19,7 +19,7 @@ public class AddCompanyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_result);
+        setContentView(R.layout.activity_add_company);
 
         //when button is clicked the user goes back to the admin page
         ((Button) findViewById(R.id.goBackBtn)).setOnClickListener(new View.OnClickListener() {
