@@ -13,4 +13,6 @@
     <string name="thank_you">Þú hefur nú lokið þátttöku þinni í þessari könnun. Takk fyrir.</string>
     <string name="close_app">Loka appi</string>
     <string name="numb_quest">Númer spurningar</string>
+    <string name="username">Notendanafn</string>
+    <string name="password">Lykilorð</string>
 </resources>

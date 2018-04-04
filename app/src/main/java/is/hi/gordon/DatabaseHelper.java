@@ -184,4 +184,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return intAnswer;
     }
+
+    //get all admins
+    public String[] getAdmin (String user, String password) {
+
+        //query to find out if user exists in the table and if password is password where username
+        //is user
+        String query = "SELECT * FROM adminTable WHERE username = '" + user + "' AND password = '" + password + "'";
+
+        //get a readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //create a cursor to handle the raw database objects
+        Cursor cursor = db.rawQuery(query, null);
+
+        //take database objects from the cursor and put into an array
+        cursor.moveToFirst();
+        ArrayList<String> usersAList = new ArrayList<String>();
+        while(!cursor.isAfterLast()) {
+            usersAList.add(cursor.getString(cursor.getColumnIndex(user)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        String [] userArray = usersAList.toArray(new String[usersAList.size()]);
+
+        return userArray;
+    }
 }

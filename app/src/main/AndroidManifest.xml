@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CopyDbActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,6 +20,9 @@
         </activity>
         <activity android:name=".ResultActivity"
             android:parentActivityName=".QuestActivity">
+        </activity>
+        <activity android:name=".AdminActivity"
+            android:parentActivityName=".LoginActivity">
         </activity>
     </application>
 
