@@ -21,9 +21,6 @@
         <activity android:name=".ResultActivity"
             android:parentActivityName=".QuestActivity">
         </activity>
-        <activity android:name=".AdminActivity"
-            android:parentActivityName=".LoginActivity">
-        </activity>
         <activity android:name=".CompanyListActivity"
             android:parentActivityName=".AdminActivity">
         </activity>
