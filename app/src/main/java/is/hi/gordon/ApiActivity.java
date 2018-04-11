@@ -6,23 +6,16 @@ package is.hi.gordon;
  * Þessi klassi á að sjá um tengingu við api-ið okkar
  */
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -35,12 +28,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import is.hi.gordon.R;
-import is.hi.gordon.Score;
-
 
 public class ApiActivity extends AppCompatActivity {
-    private Score mScore;
+    private User mUser;
     public static final String TAG = ApiActivity .class.getSimpleName();
     private double zeroScore = 0;
 
@@ -98,7 +88,7 @@ public class ApiActivity extends AppCompatActivity {
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             System.out.println(jsonData);
-                            mScore= parseScoreDetails(jsonData);
+                            mUser = parseScoreDetails(jsonData);
                             //We are not on main thread
                             //Need to call this method and pass a new Runnable thread
                             //to be able to update the view.
@@ -146,16 +136,16 @@ public class ApiActivity extends AppCompatActivity {
         // hérna vantar að setja inn það sem ég er að sækja á api - json strengi
     }
 
-    private Score parseScoreDetails(String jsonData) throws JSONException{
-        Score score = new Score();
+    private User parseScoreDetails(String jsonData) throws JSONException{
+        User user = new User();
 
-        score.setTitle(getTitle(jsonData));
-        score.setCompany(getCompany(jsonData));
-        score.setDepartment(getDepartment(jsonData));
-        score.setScore(getScore(jsonData));
+        user.setEmail(getEmail(jsonData));
+        user.setCompany(getCompany(jsonData));
+        user.setDepartment(getDepartment(jsonData));
+        user.setScore(getScore(jsonData));
 
 
-        return score;
+        return user;
     }
 
 
