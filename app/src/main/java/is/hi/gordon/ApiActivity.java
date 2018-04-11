@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import is.hi.gordon.User;
 
 
 public class ApiActivity extends AppCompatActivity {
@@ -39,7 +42,7 @@ public class ApiActivity extends AppCompatActivity {
     TextView mtextScore;
 
     @BindView(R.id.buttonScore)
-    Button mbuttonScore;
+    Button mButtonScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +51,21 @@ public class ApiActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mbuttonScore.setOnClickListener(new View.OnClickListener() {
+        mButtonScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getScore(zeroScore);
+                getUser();
+                Log.d("UserCall", "Usercall");
             }
         });
 
-        getScore(zeroScore);
+        getUser();
     }
 
 
-    private void getScore(double lat, double lon) {
-        String scoreUrl = "https://veftjonhugbo2.herokuapp.com/api/questions";
-        System.out.println(scoreUrl);
+    private void getUser() {
+        String scoreUrl = "https://gordonveftjon.herokuapp.com/api/questions/";
+        Log.d("scoreUrl", scoreUrl);
         if(isNetworkAvailable()) {
            // toggleRefresh();
             OkHttpClient client = new OkHttpClient();
@@ -120,6 +124,7 @@ public class ApiActivity extends AppCompatActivity {
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
         if(networkInfo!= null && networkInfo.isConnected()) isAvailable = true;
+        Log.d("isNetworkAvailable","available");
         return isAvailable;
     }
 
@@ -132,20 +137,62 @@ public class ApiActivity extends AppCompatActivity {
      * updates the display
      */
     private void updateDisplay() {
-
-        // hérna vantar að setja inn það sem ég er að sækja á api - json strengi
+        mtextScore.setText(mUser.getScore());
+        Log.d("update", "update");
     }
 
     private User parseScoreDetails(String jsonData) throws JSONException{
         User user = new User();
 
-        user.setEmail(getEmail(jsonData));
-        user.setCompany(getCompany(jsonData));
-        user.setDepartment(getDepartment(jsonData));
-        user.setScore(getScore(jsonData));
+        user.setScore(getEmail(jsonData, "brynja@brynja.is"));
+        Log.d("parseScoreDetails","parseScore");
+       // user.setCompany(getCompany(jsonData));
+       // user.setDepartment(getDepartment(jsonData));
+       // user.setScore(getScore(jsonData));
 
 
         return user;
+    }
+
+
+    private String getEmail(String jsonData, String email) throws JSONException {
+        JSONArray user = new JSONArray(jsonData);
+
+        User[] users = new User[user.length()];
+        String score;
+
+        for(int i=0; i<user.length();i++)
+        {
+            Log.d("lykkja 1", "lykkja 1");
+            JSONObject jsonUser = user.getJSONObject(i);
+            User use = new User();
+
+            use.setEmail(jsonUser.getString("email"));
+            use.setCompany(jsonUser.getString("company"));
+            use.setDepartment(jsonUser.getString("department"));
+            use.setScore(jsonUser.getString("score"));
+            users[i] = use;
+        }
+
+        for(int i=0; i<users.length; i++)
+        {
+            Log.d("lykkja 2", "lykkja 2");
+            Log.d("lykkja users", users[i].getEmail());
+            Log.d("lykkja email", email);
+            if(users[i].getEmail().equals(email))
+            {
+                Log.d("lykkja 3", "lykkja 3");
+                score = users[i].getScore();
+                return score;
+            }
+            //bæta við else seinna, villuskilaboð
+        }
+
+        return "villa";
+
+        /*String email = user.getString("email");
+        System.out.println("email" + jsonData);
+        return email;*/
     }
 
 
