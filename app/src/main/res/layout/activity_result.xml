@@ -42,10 +42,10 @@
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/score"
+            android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/score"
+            android:text="@string/user"
             android:textAlignment="center"
             android:gravity= "center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

@@ -22,7 +22,7 @@ public class ResultActivity extends Activity {
         setContentView(R.layout.activity_result);
 
         //get text view
-        TextView textScore = (TextView)findViewById(R.id.score);
+        TextView textScore = (TextView)findViewById(R.id.scoreText);
 
         //number of questions
         int questNumb = 28;
