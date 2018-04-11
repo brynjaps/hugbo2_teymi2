@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+    <TextView
+        android:id="@+id/decription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="59dp"
+        android:gravity="center"
+        android:text="Vinnsamlegast fylltu út allar upplýsingarnar hér að neðan og svaraðu svo öllum spurningunum samviskusamlega."
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/email_text"
+        android:layout_width="325dp"
+        android:layout_height="29dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="176dp"
+        android:textSize="17sp"
+        android:text="Netfang:" />
+
+    <EditText
+        android:id="@+id/emailfillin"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/email_text"
+        android:layout_below="@+id/email_text"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/comp"
+        android:layout_width="322dp"
+        android:layout_height="32dp"
+        android:layout_alignStart="@+id/email_text"
+        android:layout_below="@+id/emailfillin"
+        android:textSize="17sp"
+        android:text="Fyrirtæki:" />
+
+    <EditText
+        android:id="@+id/company"
+        android:layout_width="322dp"
+        android:layout_height="35dp"
+        android:layout_alignStart="@+id/email_text"
+        android:layout_below="@+id/comp" />
+
+    <TextView
+        android:id="@+id/dep"
+        android:layout_width="326dp"
+        android:layout_height="32dp"
+        android:layout_alignStart="@+id/email_text"
+        android:layout_below="@+id/company"
+        android:textSize="17sp"
+        android:text="Deild:" />
+
+    <EditText
+        android:id="@+id/department"
+        android:layout_width="326dp"
+        android:layout_height="36dp"
+        android:layout_alignStart="@+id/email_text"
+        android:layout_below="@+id/dep" />
+
+    <Button
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:background="@android:color/white"
+        android:onClick="login"
+        android:text="Fara yfir í spurningar" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:text="Velkominn í Gordon"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="38sp" />
+
+</RelativeLayout>
+
+
