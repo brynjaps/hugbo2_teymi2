@@ -6,6 +6,7 @@ package is.hi.gordon;
  * Þessi klassi á að sjá um tengingu við api-ið okkar
  */
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -44,6 +46,8 @@ public class ApiActivity extends AppCompatActivity {
     @BindView(R.id.buttonScore)
     Button mButtonScore;
 
+    EditText mEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +55,8 @@ public class ApiActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mButtonScore.setOnClickListener(new View.OnClickListener() {
-            @Override
+        ((Button) findViewById(R.id.buttonScore)).setOnClickListener(new View.OnClickListener(){
+        @Override
             public void onClick(View v) {
                 getUser();
                 Log.d("UserCall", "Usercall");
@@ -144,7 +148,13 @@ public class ApiActivity extends AppCompatActivity {
     private User parseScoreDetails(String jsonData) throws JSONException{
         User user = new User();
 
-        user.setScore(getEmail(jsonData, "brynja@brynja.is"));
+        mEmail = (EditText)findViewById(R.id.email);
+
+        CharSequence emailText = mEmail.getText();
+
+        String email = emailText.toString();
+
+        user.setScore(getScore(jsonData, email));
         Log.d("parseScoreDetails","parseScore");
        // user.setCompany(getCompany(jsonData));
        // user.setDepartment(getDepartment(jsonData));
@@ -155,7 +165,7 @@ public class ApiActivity extends AppCompatActivity {
     }
 
 
-    private String getEmail(String jsonData, String email) throws JSONException {
+    private String getScore(String jsonData, String email) throws JSONException {
         JSONArray user = new JSONArray(jsonData);
 
         User[] users = new User[user.length()];

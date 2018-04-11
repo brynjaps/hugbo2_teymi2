@@ -16,6 +16,13 @@
             android:layout_height="wrap_content"
             android:text="TextView" />
 
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
         <Button
             android:id="@+id/buttonScore"
             android:layout_width="match_parent"
