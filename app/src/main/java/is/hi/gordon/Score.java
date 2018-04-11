@@ -10,4 +10,18 @@ package is.hi.gordon;
 
 
 public class Score {
+    private Title mTitle;
+    private Company mCompany;
+
+
+    public Title getTitle() { return mTitle; }
+
+    public void setTitle(Title title) { mTitle = title;}
+
+    public Company getmCompany() { return mCompany;}
+
+    public void setCompany ( Company company) { mCompany = company;}
+
+    public
+
 }

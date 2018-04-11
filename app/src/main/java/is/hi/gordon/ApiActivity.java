@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,17 +35,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-
+import is.hi.gordon.R;
 import is.hi.gordon.Score;
 
 
 public class ApiActivity extends AppCompatActivity {
     private Score mScore;
     public static final String TAG = ApiActivity .class.getSimpleName();
+    private double zeroScore = 0;
 
 
     @BindView(R.id.textScore)
-    ProgressBar mProgressBar;
+    TextView mtextScore;
+
+    @BindView(R.id.buttonScore)
+    Button mbuttonScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,26 +58,22 @@ public class ApiActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mProgressBar.setVisibility(View.INVISIBLE);
-
-
-
-        mRefreshImageView.setOnClickListener(new View.OnClickListener() {
+        mbuttonScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getForecast(latitude, longitude);
+                getScore(zeroScore);
             }
         });
 
-        getForecast(latitude, longitude);
+        getScore(zeroScore);
     }
 
 
-    private void getForecast(double lat, double lon) {
+    private void getScore(double lat, double lon) {
         String scoreUrl = "https://veftjonhugbo2.herokuapp.com/api/questions";
-        System.out.println(scoreUrl)
+        System.out.println(scoreUrl);
         if(isNetworkAvailable()) {
-            toggleRefresh();
+           // toggleRefresh();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(scoreUrl)
@@ -96,6 +97,7 @@ public class ApiActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
+                            System.out.println(jsonData);
                             mScore= parseScoreDetails(jsonData);
                             //We are not on main thread
                             //Need to call this method and pass a new Runnable thread
@@ -145,13 +147,15 @@ public class ApiActivity extends AppCompatActivity {
     }
 
     private Score parseScoreDetails(String jsonData) throws JSONException{
-        Score forecast = new Score();
+        Score score = new Score();
 
-        forecast.setCurrent(getCurrentDetails(jsonData));
-        forecast.setHourlyForecast(getHourlyForecast(jsonData));
-        forecast.setDailyForecast(getDailyForecast(jsonData));
+        score.setTitle(getTitle(jsonData));
+        score.setCompany(getCompany(jsonData));
+        score.setDepartment(getDepartment(jsonData));
+        score.setScore(getScore(jsonData));
 
-        return forecast;
+
+        return score;
     }
 
 

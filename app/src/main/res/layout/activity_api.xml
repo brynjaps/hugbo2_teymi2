@@ -15,5 +15,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
+        <Button
+            android:id="@+id/buttonScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
