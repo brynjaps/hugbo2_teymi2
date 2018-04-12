@@ -71,6 +71,7 @@
         android:layout_below="@+id/dep" />
 
     <Button
+        android:id="@+id/skra_btn"
         android:layout_width="246dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

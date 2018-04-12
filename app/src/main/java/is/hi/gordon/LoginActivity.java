@@ -25,6 +25,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
 
     String [] userArray;
+    String [] adminArray;
     EditText username;
     EditText password;
     Admin currentUser;
@@ -70,19 +71,26 @@ public class LoginActivity extends AppCompatActivity {
                 //change passwordText to String
                 String pass = passwordText.toString();
 
+
                 //gets all users that match the one put in and also the password put in
                 //userArray = dbHelp.getAdmin(user, pass);
 
                 //when data from database has been successfully imported go to AdminActivity class
-                //if(userArray.length > 0) {
-                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                if(user.equals("admin") && pass.equals("123")) {
+                    Intent intent = new Intent(LoginActivity.this, ApiActivity.class);
                     startActivity(intent);
                     finish();
-                /*} else {
+                } else if(user.equals("user") && pass.equals("123")) {
+                    Intent intent = new Intent(LoginActivity.this, QuestActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
                     error = (TextView)findViewById(R.id.ErrorLogin);
                     error.setText("Vitlaust notendanafn eða lykilorð, vinsamlegast reyndu aftur");
                     finish();
-                }*/
+                }
+
+
             }
         });
 
