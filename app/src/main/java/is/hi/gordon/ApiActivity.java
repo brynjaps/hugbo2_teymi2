@@ -1,7 +1,7 @@
 package is.hi.gordon;
 
 /**
- * Created by Karítas Sif  on 9.4.2018.
+ * Created by Karítas Sif og Brynja Pálína on 9.4.2018.
  *
  * Þessi klassi á að sjá um tengingu við api-ið okkar
  */
@@ -28,8 +28,10 @@ import butterknife.ButterKnife;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import is.hi.gordon.User;
 
@@ -47,6 +49,7 @@ public class ApiActivity extends AppCompatActivity {
     Button mButtonScore;
 
     EditText mEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,5 +208,21 @@ public class ApiActivity extends AppCompatActivity {
         return email;*/
     }
 
+    public String post(String url, String data) throws IOException {
+            OkHttpClient client = new OkHttpClient();
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            RequestBody body = RequestBody.create(JSON, data);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
 
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+        catch (IOException e) {
+            Log.e(TAG, "Exception caught: ", e);
+        }
+        return "villa";
+    }
 }
