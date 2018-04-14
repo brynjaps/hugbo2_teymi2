@@ -57,14 +57,14 @@ public class ResultActivity extends Activity {
         //get score
         Bundle bundle = getIntent().getExtras();
         int score = bundle.getInt("score");
-        //String[] newUser = bundle.getStringArray("newUser");
+        String[] newUser = bundle.getStringArray("newUser");
 
         //change score to String
         String scoreString = Integer.toString(score);
 
-        //newUser[3] = scoreString;
+        newUser[3] = scoreString;
 
-        //String jsonObject = makeJsonObject(newUser);
+        String jsonObject = makeJsonObject(newUser);
 
         String url = "https://gordonveftjon.herokuapp.com/api/questions/";
 
@@ -72,12 +72,12 @@ public class ResultActivity extends Activity {
 
         ResultActivity result = new ResultActivity();
 
-        /*try {
+        try {
             String x = result.post("https://gordonveftjon.herokuapp.com/api/questions", jsonObject);
             Log.d("xyxyx", x);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
         //display score
         textScore.setText(scoreString + " af " + highTotal +" stigum mögulegum");
@@ -128,9 +128,47 @@ public class ResultActivity extends Activity {
                 .url(url)
                 .post(body)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                    if (response.isSuccessful()) {
+                        System.out.println(jsonData);
+
+                        //We are not on main thread
+                        //Need to call this method and pass a new Runnable thread
+                        //to be able to update the view.
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Call the method to update the view.
+                            //    updateDisplay();
+                            }
+                        });
+                    } else {
+                        //alertUserAboutError();
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "Exception caught: ", e);
+                }
+            }
+        });
+        /*try (Response response = client.newCall(request).execute()) {
             return response.body().string();
-        }
+        }*/
 
        /* try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
@@ -143,5 +181,6 @@ public class ResultActivity extends Activity {
             Log.e(TAG, "Exception caught: ", e);
         }
         return "villa";*/
+       return "sucdess";
     }
 }

@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //when questionbtn is clicked the database is copied into the app and lets know when it is done
         //and sends the user to the question page
-        ((Button) findViewById(R.id.questionBtn)).setOnClickListener(new View.OnClickListener() {
+        /*((Button) findViewById(R.id.questionBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
     }
 

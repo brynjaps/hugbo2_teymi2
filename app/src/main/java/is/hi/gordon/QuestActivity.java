@@ -54,7 +54,7 @@ public class QuestActivity extends Activity{
         nextButton = (Button)findViewById(R.id.btn_next);
 
         Bundle bundle = getIntent().getExtras();
-        //final String[] newUser = bundle.getStringArray("newUser");
+        final String[] newUser = bundle.getStringArray("newUser");
 
         //changes to the next question
         ChangeQuest();
@@ -106,7 +106,7 @@ public class QuestActivity extends Activity{
                     //put the users score into a bundle
                     bundle.putInt("score", score);
 
-                    //bundle.putStringArray("newUser", newUser);
+                    bundle.putStringArray("newUser", newUser);
 
                     //put the bundle with the score to the next Intent
                     intent.putExtras(bundle);
