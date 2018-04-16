@@ -45,10 +45,10 @@ public class ApiActivity extends AppCompatActivity {
     @BindView(R.id.textScore)
     TextView mtextScore;
 
-    @BindView(R.id.buttonScore)
-    Button mButtonScore;
+    /*@BindView(R.id.buttonScore)
+    Button mButtonScore;*/
 
-    EditText mEmail;
+    EditText mCompany;
 
 
     @Override
@@ -66,7 +66,7 @@ public class ApiActivity extends AppCompatActivity {
             }
         });
 
-        getUser();
+        //getUser();
     }
 
 
@@ -95,11 +95,11 @@ public class ApiActivity extends AppCompatActivity {
                         }
                     });
                     try {
-                        String jsonData = response.body().string();
+                        final String jsonData = response.body().string();
                         Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             System.out.println(jsonData);
-                            mUser = parseScoreDetails(jsonData);
+                            //parseScoreDetails(jsonData);
                             //We are not on main thread
                             //Need to call this method and pass a new Runnable thread
                             //to be able to update the view.
@@ -107,7 +107,11 @@ public class ApiActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     //Call the method to update the view.
-                                    updateDisplay();
+                                    try {
+                                        updateDisplay(jsonData);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                         } else {
@@ -115,9 +119,9 @@ public class ApiActivity extends AppCompatActivity {
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
-                    } catch (JSONException e) {
+                    } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
-                    }
+                    }*/
                 }
             });
         }
@@ -143,40 +147,33 @@ public class ApiActivity extends AppCompatActivity {
     /**
      * updates the display
      */
-    private void updateDisplay() {
-        mtextScore.setText(mUser.getScore());
+    private void updateDisplay(String jsonData) throws JSONException {
+        mtextScore.setText(String.valueOf(parseScoreDetails(jsonData)));
         Log.d("update", "update");
     }
 
-    private User parseScoreDetails(String jsonData) throws JSONException{
-        User user = new User();
+    private Integer parseScoreDetails(String jsonData) throws JSONException{
 
-        mEmail = (EditText)findViewById(R.id.email);
+        mCompany = (EditText)findViewById(R.id.company);
 
-        CharSequence emailText = mEmail.getText();
+        CharSequence companyText = mCompany.getText();
 
-        String email = emailText.toString();
+        String company = companyText.toString();
 
-        user.setScore(getScore(jsonData, email));
-        Log.d("parseScoreDetails","parseScore");
-       // user.setCompany(getCompany(jsonData));
-       // user.setDepartment(getDepartment(jsonData));
-       // user.setScore(getScore(jsonData));
-
-
-        return user;
+        return getScore(jsonData, company);
     }
 
-
-    private String getScore(String jsonData, String email) throws JSONException {
+    //gets the score of a Company and returns its median of the scores
+    private Integer getScore(String jsonData, String company) throws JSONException {
         JSONArray user = new JSONArray(jsonData);
 
         User[] users = new User[user.length()];
-        String score;
+        int score = 0;
+        String userScore;
+        int count = 0;
 
         for(int i=0; i<user.length();i++)
         {
-            Log.d("lykkja 1", "lykkja 1");
             JSONObject jsonUser = user.getJSONObject(i);
             User use = new User();
 
@@ -189,40 +186,16 @@ public class ApiActivity extends AppCompatActivity {
 
         for(int i=0; i<users.length; i++)
         {
-            Log.d("lykkja 2", "lykkja 2");
-            Log.d("lykkja users", users[i].getEmail());
-            Log.d("lykkja email", email);
-            if(users[i].getEmail().equals(email))
+            if(users[i].getCompany().equals(company))
             {
-                Log.d("lykkja 3", "lykkja 3");
-                score = users[i].getScore();
-                return score;
+                count = count + 1;
+                userScore = users[i].getScore();
+                score += Integer.parseInt(userScore);
             }
-            //bæta við else seinna, villuskilaboð
         }
 
-        return "villa";
+        int companyMedian = Math.round(score/count);
 
-        /*String email = user.getString("email");
-        System.out.println("email" + jsonData);
-        return email;*/
-    }
-
-    public String post(String url, String data) throws IOException {
-            OkHttpClient client = new OkHttpClient();
-            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-            RequestBody body = RequestBody.create(JSON, data);
-            Request request = new Request.Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
-        catch (IOException e) {
-            Log.e(TAG, "Exception caught: ", e);
-        }
-        return "villa";
+        return companyMedian;
     }
 }

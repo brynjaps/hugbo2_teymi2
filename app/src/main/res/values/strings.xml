@@ -25,4 +25,7 @@
     <string name="goBackBtn">Til baka</string>
     <string name="signOutBtn">Útskrá</string>
     <string name="questionBtn">Fara í spurningar</string>
+    <string name="searchCompany">Leitaðu eftir fyrirtæki</string>
+    <string name="searchButton">Ná í meðaltal fyrirtækis</string>
+    <string name="medianResult">Meðaltal fyrirtækis:</string>
 </resources>

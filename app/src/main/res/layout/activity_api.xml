@@ -21,18 +21,18 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <TextView
-            android:id="@+id/utskyrig"
+            android:id="@+id/searchCompany"
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:text="Leitaðu eftir netfangi:"
+            android:text="@string/searchCompany"
+            android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="28sp"
             tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="0dp"
-            android:textAlignment="center"/>
+            tools:layout_editor_absoluteY="0dp" />
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@android:color/white"
-            android:text="Ná í stig" />
+            android:text="@string/searchButton" />
 
         <Space
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
             android:id="@+id/resault"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:text="Stigafjöldinn er:"
+            android:text="@string/medianResult"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="22sp" />
