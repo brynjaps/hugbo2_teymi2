@@ -9,15 +9,16 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="131dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="144dp"
+        android:background="@android:color/white"
         android:text="@string/login_button"
         tools:layout_editor_absoluteX="144dp"
         tools:layout_editor_absoluteY="260dp"
-        android:background="@android:color/white"/>
+        android:textSize="18dp"/>
 
     <ImageView
         android:id="@+id/logo"
@@ -31,40 +32,30 @@
 
     <EditText
         android:id="@+id/user"
-        android:layout_width="200dp"
-        android:layout_height="20dp"
+        android:layout_width="292dp"
+        android:layout_height="51dp"
         android:layout_above="@+id/pass"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="#11000000"
+        android:drawableLeft="@drawable/ic_action_user"
         android:ems="10"
         android:hint="Notendanafn"
         android:inputType="textPersonName"
-        android:textSize="16dp"
-        android:drawableLeft="@drawable/ic_action_user"/>
+        android:textSize="18dp" />
 
     <EditText
         android:id="@+id/pass"
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_alignLeft="@+id/user"
-        android:layout_alignStart="@+id/user"
-        android:layout_centerVertical="true"
+        android:layout_width="297dp"
+        android:layout_height="49dp"
+        android:layout_centerInParent="true"
         android:background="#11000000"
+        android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="Lykilord"
-        android:drawableLeft="@drawable/ic_action_pass"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textSize="18dp" />
 
-    <TextView
-        android:id="@+id/new_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp"
-        android:text="Nýskráning" />
-  
     <TextView
         android:id="@+id/ErrorLogin"
         android:layout_width="match_parent"
