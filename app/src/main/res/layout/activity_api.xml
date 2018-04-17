@@ -17,27 +17,29 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="16dp"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/searchCompany"
             android:layout_width="match_parent"
-            android:layout_height="69dp"
+            android:layout_height="76dp"
             android:text="@string/searchCompany"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="28sp"
+            android:textSize="32sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="0dp" />
 
         <EditText
             android:id="@+id/company"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="66dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
 
         <Space
             android:layout_width="match_parent"
@@ -45,11 +47,12 @@
 
         <Button
             android:id="@+id/buttonScore"
-            android:layout_width="155dp"
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:background="@android:color/white"
-            android:text="@string/searchButton" />
+            android:text="@string/searchButton"
+            android:textSize="18sp" />
 
         <Space
             android:layout_width="match_parent"
