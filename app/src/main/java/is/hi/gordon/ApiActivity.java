@@ -143,8 +143,10 @@ public class ApiActivity extends AppCompatActivity {
      * updates the display
      */
     private void updateDisplay(String jsonData) throws JSONException {
-        mtextScore.setText(String.valueOf(parseScoreDetails(jsonData)));
-        Log.d("update", "update");
+        Log.d("parse", "parse: " + parseScoreDetails(jsonData));
+        if(parseScoreDetails(jsonData) == 0) {
+            mtextScore.setText("Fyrirtæki/Deild er ekki til");
+        } else mtextScore.setText(String.valueOf(parseScoreDetails(jsonData)));
     }
 
     private Integer parseScoreDetails(String jsonData) throws JSONException{
