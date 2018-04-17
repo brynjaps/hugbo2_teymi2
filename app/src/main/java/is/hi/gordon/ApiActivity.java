@@ -3,7 +3,7 @@ package is.hi.gordon;
 /**
  * Created by Karítas Sif og Brynja Pálína on 9.4.2018.
  *
- * Þessi klassi á að sjá um tengingu við api-ið okkar
+ * Þessi klasi á að sjá um tengingu við api-ið okkar
  */
 import android.content.Context;
 import android.content.Intent;
@@ -45,9 +45,6 @@ public class ApiActivity extends AppCompatActivity {
     @BindView(R.id.textScore)
     TextView mtextScore;
 
-    /*@BindView(R.id.buttonScore)
-    Button mButtonScore;*/
-
     EditText mCompany;
 
 
@@ -65,8 +62,6 @@ public class ApiActivity extends AppCompatActivity {
                 Log.d("UserCall", "Usercall");
             }
         });
-
-        //getUser();
     }
 
 
@@ -194,8 +189,23 @@ public class ApiActivity extends AppCompatActivity {
             }
         }
 
-        int companyMedian = Math.round(score/count);
+        if(count == 0) {
+            for(int i=0; i<users.length; i++)
+            {
+                if(users[i].getDepartment().equals(company))
+                {
+                    count = count + 1;
+                    userScore = users[i].getScore();
+                    score += Integer.parseInt(userScore);
+                }
+            }
+        }
 
-        return companyMedian;
+        if(count > 0) {
+            int companyMedian = Math.round(score/count);
+            return companyMedian;
+        } else {
+            return 0;
+        }
     }
 }
