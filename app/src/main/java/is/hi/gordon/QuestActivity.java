@@ -100,6 +100,7 @@ public class QuestActivity extends Activity{
 
 
         //gets all questions and puts them in the list
+
         //Bundle data = getIntent().getExtras();
         //questList = data.getParcelable("questList");
 

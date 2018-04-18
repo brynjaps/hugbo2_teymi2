@@ -37,6 +37,9 @@
         <activity android:name=".ApiActivity"
             android:parentActivityName=".AdminActivity">
         </activity>
+        <activity android:name=".newUserActivity"
+            android:parentActivityName=".LoginActivity">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
