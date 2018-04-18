@@ -1,10 +1,7 @@
 package is.hi.gordon;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -16,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,15 +37,12 @@ import okhttp3.Response;
  */
 
 public class QuestActivity extends Activity{
-    //ArrayList<Question> questList = new ArrayList<>();
     Question[] questGet;
     Question[] questList;
     int scoreUser = 0;
     int score = 0;
-    int questId = 1;
     int totalQuest = 28;
     int currentQuestInt = 0;
-    String[] newUser;
 
     String currentQuest = "wait";
     TextView numbQuest;
@@ -65,7 +58,6 @@ public class QuestActivity extends Activity{
         //initialize the database helper
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest);
-        final DatabaseHelper dbHelp = new DatabaseHelper(this);
 
         numbQuest = (TextView)findViewById(R.id.numb_quest);
         questLabel = (TextView)findViewById(R.id.quest_label);
@@ -87,57 +79,10 @@ public class QuestActivity extends Activity{
         nextButton.setEnabled(false);
         answerQuestBtn.setEnabled(false);
 
-        /*if(questList != null) {
-            currentQuest = questList[0].getNumber();
-            currentQuestInt = Integer.parseInt(currentQuest);
-
-            Bundle bundle = getIntent().getExtras();
-            final String[] newUser = bundle.getStringArray("newUser");
-
-            //changes to the next question
-            ChangeQuest();
-        }*/
-
-
-        //gets all questions and puts them in the list
-
-        //Bundle data = getIntent().getExtras();
-        //questList = data.getParcelable("questList");
-
-       /* synchronized (currentQuest) {
-            while(questList == null) {
-                try {
-                    currentQuest.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        if (questList == null) {
-            return;
-        }
-
-        Log.d("getQuestions","getQuestions: " + questList);
-
-        //gets the id of question number 1
-        //Log.d("questList","questList: " + questList[0].getNumber());
-
-
-        currentQuest = questList[0].getNumber();
-        currentQuestInt = Integer.parseInt(currentQuest);
-
-        Bundle bundle = getIntent().getExtras();
-        final String[] newUser = bundle.getStringArray("newUser");
-
-        //changes to the next question
-        ChangeQuest();
-*/
         ((Button) findViewById(R.id.getQuestBtn)).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 questList = getQuestion();
-                Log.d("spurninga takki", "spurninga takki");
 
                 if(questList == null) {
                     spinner.setVisibility(View.VISIBLE);
@@ -150,7 +95,6 @@ public class QuestActivity extends Activity{
         ((Button) findViewById(R.id.answerQuest)).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.d("questListNow", "questListNow" + questList);
                 if(questList != null) {
                     currentQuest = questList[0].getNumber();
                     currentQuestInt = Integer.parseInt(currentQuest);
@@ -205,11 +149,6 @@ public class QuestActivity extends Activity{
                 //add the score from option picked to the score the player has
                 if(getUserScore(answerString, String.valueOf(currentQuestInt-2)) == 0)
                 score += getUserScore(answerString, String.valueOf(currentQuestInt-2));
-               // Log.d("bla questionNumber", "questionNumber: " + questList[currentQuestInt-2].getNumber());
-                Log.d("bla questionName", "questionName: " + questList[currentQuestInt-2].getQuestTitle());
-                Log.d("bla answer", "anwer: " + answerString);
-                Log.d("bla currentQuestInt", "CurrentQuestInt: " + currentQuestInt);
-                Log.d("bla score","score: " + score);
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
@@ -252,16 +191,12 @@ public class QuestActivity extends Activity{
 
     //gets all the questions
     private Question[] getQuest(String jsonData) throws JSONException {
-        Log.d("another success", "another success");
         JSONArray quest = new JSONArray(jsonData);
-
-        Log.d("quest", "quest:" + quest);
 
         Question[] questions = new Question[quest.length()];
 
         for(int i=0; i<quest.length();i++)
         {
-            Log.d("lykkja","lykkja");
             JSONObject jsonUser = quest.getJSONObject(i);
             Question question = new Question();
             question.setQuestTitle(jsonUser.getString("question"));
@@ -272,17 +207,13 @@ public class QuestActivity extends Activity{
             question.setRarely(jsonUser.getString("rarely"));
             question.setNever(jsonUser.getString("never"));
             questions[i] = question;
-            Log.d("lykkja 2", "lykkja búin");
         }
-        Log.d("questions", "array questions: " + questions);
-        Log.d("asList","asList: " + Arrays.asList(questions));
         return questions;
     }
 
     public Question[] getQuestion() {
         String scoreUrl = "https://gordonveftjon.herokuapp.com/api/questionstext/";
         if(isNetworkAvailable()) {
-            // toggleRefresh();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(scoreUrl)
@@ -292,7 +223,7 @@ public class QuestActivity extends Activity{
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d("fail", "getQu-fail");
+
                 }
 
                 @Override
@@ -304,45 +235,20 @@ public class QuestActivity extends Activity{
                     });
                     try {
                         final String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
-                            Log.d("success", "success");
                             System.out.println(jsonData);
                             questGet = getQuest(jsonData);
-                            //parseScoreDetails(jsonData);
-                            //We are not on main thread
-                            //Need to call this method and pass a new Runnable thread
-                            //to be able to update the view.
-                           /* runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.d("4th succcess", "4th success");
-                                    //Call the method to update the view.
-                                    try {
-                                        Log.d("3rd success","3rd success");
-                                        //questGet = getQuest(jsonData);
-                                        Log.d("getQuest", "getQuest: " + questGet);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });*/
                         } else {
-                            Log.d("else fail", "getQu-else fail");
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
-                    } /*catch (JSONException e) {
-                        Log.e(TAG, "JSON caught: ", e);
-                    }*/ catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             });
         }
-        else {
-            //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
-        }
+
         return questGet;
     }
 
@@ -351,7 +257,6 @@ public class QuestActivity extends Activity{
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
         if(networkInfo!= null && networkInfo.isConnected()) isAvailable = true;
-        Log.d("isNetworkAvailable","available");
         return isAvailable;
     }
 
@@ -381,7 +286,6 @@ public class QuestActivity extends Activity{
                     });
                     try {
                         final String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             System.out.println(jsonData);
                             //parseScoreDetails(jsonData);
@@ -404,14 +308,9 @@ public class QuestActivity extends Activity{
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
-                    } /*catch (JSONException e) {
-                        Log.e(TAG, "JSON caught: ", e);
-                    }*/
+                    }
                 }
             });
-        }
-        else {
-            //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
 
         return  scoreUser;
@@ -444,31 +343,26 @@ public class QuestActivity extends Activity{
                 if(answerString.equals("always")) {
                     String alwaysAnswer = questions[i].getAlways();
                     int alwaysInt = Integer.parseInt(alwaysAnswer);
-                    Log.d("bla always", "bla always: " + alwaysInt);
                     return alwaysInt;
                 }
                 if(answerString.equals("usually")) {
                     String usuallyAnswer = questions[i].getUsually();
                     int usuallyInt = Integer.parseInt(usuallyAnswer);
-                    Log.d("bla usuallyInt", "bla usuallyInt: " + usuallyInt);
                     return usuallyInt;
                 }
                 if(answerString.equals("sometimes")) {
                     String sometimesAnswer = questions[i].getSometimes();
                     int sometimesInt = Integer.parseInt(sometimesAnswer);
-                    Log.d("bla sometimesInt", "bla sometimesInt: " + sometimesInt);
                     return sometimesInt;
                 }
                 if(answerString.equals("rarely")) {
                     String rarelyAnswer = questions[i].getRarely();
                     int rarelyInt = Integer.parseInt(rarelyAnswer);
-                    Log.d("bla rarelyInt", "bla rarelyInt: " + rarelyInt);
                     return rarelyInt;
                 }
                 if(answerString.equals("never")) {
                     String neverAnswer = questions[i].getNever();
                     int neverInt = Integer.parseInt(neverAnswer);
-                    Log.d("bla neverInt", "bla neverInt: " + neverInt);
                     return neverInt;
                 }
             }

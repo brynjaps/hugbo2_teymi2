@@ -57,10 +57,6 @@ public class newUserActivity extends Activity {
         });
     }
 
-    public String[] getNewUsers() {
-        return newUser;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

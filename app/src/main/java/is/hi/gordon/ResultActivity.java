@@ -1,9 +1,6 @@
 package is.hi.gordon;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,8 +10,6 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -74,7 +69,6 @@ public class ResultActivity extends Activity {
 
         try {
             String x = result.post("https://gordonveftjon.herokuapp.com/api/questions", jsonObject);
-            Log.d("xyxyx", x);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,7 +106,6 @@ public class ResultActivity extends Activity {
         }
 
         String userString = user.toString();
-        Log.d("json", userString);
         return userString;
     }
 
@@ -144,7 +137,6 @@ public class ResultActivity extends Activity {
                 });
                 try {
                     String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
                     if (response.isSuccessful()) {
                         System.out.println(jsonData);
 
@@ -166,21 +158,7 @@ public class ResultActivity extends Activity {
                 }
             }
         });
-        /*try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }*/
 
-       /* try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-            System.out.println(response.body().string());
-
-            //return response.body().string();
-        }
-        catch (IOException e) {
-            Log.e(TAG, "Exception caught: ", e);
-        }
-        return "villa";*/
-       return "sucdess";
+       return "success";
     }
 }

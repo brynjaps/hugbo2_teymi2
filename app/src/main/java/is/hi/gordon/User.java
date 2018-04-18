@@ -10,8 +10,6 @@ import android.arch.persistence.room.PrimaryKey;
  * A model class for the table User
  */
 
-// Þarf að skilgreina scorið sem við ættlum að ná í hérna
-
 @Entity(tableName = "user")
 public class User {
 

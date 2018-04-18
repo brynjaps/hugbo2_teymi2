@@ -6,7 +6,6 @@ package is.hi.gordon;
  * Þessi klasi á að sjá um tengingu við api-ið okkar
  */
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -28,12 +27,9 @@ import butterknife.ButterKnife;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import is.hi.gordon.User;
 
 
 public class ApiActivity extends AppCompatActivity {
@@ -59,7 +55,6 @@ public class ApiActivity extends AppCompatActivity {
         @Override
             public void onClick(View v) {
                 getUser();
-                Log.d("UserCall", "Usercall");
             }
         });
     }
@@ -90,7 +85,6 @@ public class ApiActivity extends AppCompatActivity {
                     });
                     try {
                         final String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
                         if (response.isSuccessful()) {
                             System.out.println(jsonData);
                             //parseScoreDetails(jsonData);
@@ -113,13 +107,9 @@ public class ApiActivity extends AppCompatActivity {
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
-                    } /*catch (JSONException e) {
-                        Log.e(TAG, "JSON caught: ", e);
-                    }*/
+                    }
                 }
             });
-        } else {
-            //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -128,20 +118,13 @@ public class ApiActivity extends AppCompatActivity {
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
         if(networkInfo!= null && networkInfo.isConnected()) isAvailable = true;
-        Log.d("isNetworkAvailable","available");
         return isAvailable;
-    }
-
-    private void alertUserAboutError() {
-       // AlertDialogFragment dialog = new AlertDialogFragment();
-      //  dialog.show(getFragmentManager(), "error_dialog");
     }
 
     /**
      * updates the display
      */
     private void updateScore(String jsonData) throws JSONException {
-        Log.d("parse", "parse: " + parseScoreDetails(jsonData));
         if(parseScoreDetails(jsonData) == 0) {
             mtextScore.setText("Fyrirtæki/Deild er ekki til");
         } else mtextScore.setText(String.valueOf(parseScoreDetails(jsonData)));
