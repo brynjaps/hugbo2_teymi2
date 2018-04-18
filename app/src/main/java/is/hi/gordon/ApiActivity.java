@@ -78,52 +78,52 @@ public class ApiActivity extends AppCompatActivity {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+    public void onFailure(Call call, IOException e) {
 
-                }
+    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            }
+        });
+        try {
+            final String jsonData = response.body().string();
+            Log.v(TAG, jsonData);
+            if (response.isSuccessful()) {
+                System.out.println(jsonData);
+                //parseScoreDetails(jsonData);
+                //We are not on main thread
+                //Need to call this method and pass a new Runnable thread
+                //to be able to update the view.
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Call the method to update the view.
+                        try {
+                            updateDisplay(jsonData);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    });
-                    try {
-                        final String jsonData = response.body().string();
-                        Log.v(TAG, jsonData);
-                        if (response.isSuccessful()) {
-                            System.out.println(jsonData);
-                            //parseScoreDetails(jsonData);
-                            //We are not on main thread
-                            //Need to call this method and pass a new Runnable thread
-                            //to be able to update the view.
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //Call the method to update the view.
-                                    try {
-                                        updateDisplay(jsonData);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        } else {
-                            alertUserAboutError();
-                        }
-                    } catch (IOException e) {
-                        Log.e(TAG, "Exception caught: ", e);
-                    } /*catch (JSONException e) {
+                    }
+                });
+            } else {
+                alertUserAboutError();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Exception caught: ", e);
+        } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
                     }*/
-                }
-            });
+    }
+});
         }
         else {
-          //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
+        //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
-    }
+        }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

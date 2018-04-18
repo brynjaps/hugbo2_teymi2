@@ -16,9 +16,6 @@ import android.support.annotation.NonNull;
 @Entity(tableName="admin")
 public class Admin {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private Integer mId;
     @ColumnInfo(name = "username")
     private String mUsername;
     @ColumnInfo(name = "password")
@@ -26,22 +23,14 @@ public class Admin {
 
 
     public Admin() {
-        mId = 0;
         mUsername = "";
         mPassword = "";
-
     }
 
     public Admin (String username, String password) {
         mUsername = username;
         mPassword = password;
     }
-
-    public Integer getId() {
-        return mId;
-    }
-
-    public void setId(Integer id) {mId = id;}
 
     public String getUsername() {
         return mUsername;
