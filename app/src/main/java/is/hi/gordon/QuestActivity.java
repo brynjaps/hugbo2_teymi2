@@ -74,7 +74,7 @@ public class QuestActivity extends Activity{
 
         //gets all questions and puts them in the list
         Bundle data = getIntent().getExtras();
-        questList = (Question[]) data.getParcelable("questList");
+      //  questList = (Question[]) data.getParcelable("questList");
 
         if (questList == null) {
             return;
