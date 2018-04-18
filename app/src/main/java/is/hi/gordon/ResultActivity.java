@@ -28,7 +28,7 @@ import java.io.IOException;
 
 
 /**
- * Created by brynj on 14/03/2018.
+ * Created by Brynja Pálína og Karítas Sif on 14/03/2018.
  *
  * The class shows results of user on the result page
  */

@@ -26,6 +26,26 @@
     <string name="signOutBtn">Útskrá</string>
     <string name="questionBtn">Fara í spurningar</string>
     <string name="searchCompany">Leitaðu eftir fyrirtæki/deild</string>
-    <string name="searchButton">Ná í meðaltal fyrirtækis/deildar</string>
+    <string name="searchButton">Ná í meðaltal</string>
     <string name="medianResult">Meðaltal fyrirtækis/deildar:</string>
+    <string name="skra_btn">Fara yfir í spurningar</string>
+    <string name="emailtext">Netfang:</string>
+    <string name="company">Fyrirtæki:</string>
+    <string name="department">Deild:</string>
+    <string name="welcome">Velkominn í Gordon</string>
+    <string name="info">Vinnsamlegast fylltu út allar upplýsingarnar hér að neðan og svaraðu svo öllum spurningunum samviskusamlega.</string>
+    <string name="btn_next">Áfram</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

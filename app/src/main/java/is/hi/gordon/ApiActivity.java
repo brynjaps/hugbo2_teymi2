@@ -77,9 +77,9 @@ public class ApiActivity extends AppCompatActivity {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+    public void onFailure(Call call, IOException e) {
 
-                }
+    }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -111,18 +111,23 @@ public class ApiActivity extends AppCompatActivity {
                         } else {
                             alertUserAboutError();
                         }
-                    } catch (IOException e) {
-                        Log.e(TAG, "Exception caught: ", e);
-                    } /*catch (JSONException e) {
+                    }
+                });
+            } else {
+                alertUserAboutError();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Exception caught: ", e);
+        } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
                     }*/
-                }
-            });
+    }
+});
         }
         else {
-          //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
+        //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
-    }
+        }
 
 
     private boolean isNetworkAvailable() {
