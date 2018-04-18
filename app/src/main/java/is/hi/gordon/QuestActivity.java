@@ -73,7 +73,8 @@ public class QuestActivity extends Activity{
         nextButton = (Button)findViewById(R.id.btn_next);
 
         //gets all questions and puts them in the list
-        questList = getQuestion();
+        Bundle data = getIntent().getExtras();
+        questList = (Question[]) data.getParcelable("questList");
 
         if (questList == null) {
             return;
@@ -169,7 +170,7 @@ public class QuestActivity extends Activity{
     }
 
     //gets all the questions
-    private Question[] getQuest(String jsonData) throws JSONException {
+    /*private Question[] getQuest(String jsonData) throws JSONException {
         Log.d("another success", "another success");
         JSONArray quest = new JSONArray(jsonData);
 
@@ -245,14 +246,14 @@ public class QuestActivity extends Activity{
                                     }
                                 }
                             });*/
-                        } else {
+                        /*} else {
                             Log.d("else fail", "getQu-else fail");
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
-                    }*/ catch (JSONException e) {
+                    }*/ /*catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -262,7 +263,7 @@ public class QuestActivity extends Activity{
             //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
         return questGet;
-    }
+    }*/
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

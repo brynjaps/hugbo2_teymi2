@@ -67,8 +67,8 @@ public class ApiActivity extends AppCompatActivity {
 
     private void getUser() {
         String scoreUrl = "https://gordonveftjon.herokuapp.com/api/questions/";
-        if(isNetworkAvailable()) {
-           // toggleRefresh();
+        if (isNetworkAvailable()) {
+            // toggleRefresh();
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(scoreUrl)
@@ -77,9 +77,9 @@ public class ApiActivity extends AppCompatActivity {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
                 @Override
-    public void onFailure(Call call, IOException e) {
+                public void onFailure(Call call, IOException e) {
 
-    }
+                }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
@@ -109,26 +109,19 @@ public class ApiActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            alertUserAboutError();
+
                         }
-                    }
-                });
-            } else {
-                alertUserAboutError();
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Exception caught: ", e);
-        } /*catch (JSONException e) {
+                    } catch (IOException e) {
+                        Log.e(TAG, "Exception caught: ", e);
+                    } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
                     }*/
+                }
+            });
+        } else {
+            //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
+        }
     }
-});
-        }
-        else {
-        //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
-        }
-        }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

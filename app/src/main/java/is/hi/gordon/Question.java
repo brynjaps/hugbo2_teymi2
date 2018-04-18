@@ -3,6 +3,8 @@ package is.hi.gordon;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
@@ -13,7 +15,7 @@ import android.support.annotation.NonNull;
  */
 
 @Entity(tableName="questions")
-public class Question {
+public class Question implements Parcelable{
 
     @PrimaryKey
     @NonNull
@@ -43,13 +45,13 @@ public class Question {
 
     public Question (String question, String number, String always, String usually, String sometimes, String
                      rarely, String never) {
-        mQuestTitle = question;
-        mNumber = number;
-        mAlways = always;
-        mUsually = usually;
-        mSometimes = sometimes;
-        mRarely = rarely;
-        mNever = never;
+        this.mQuestTitle = question;
+        this.mNumber = number;
+        this.mAlways = always;
+        this.mUsually = usually;
+        this.mSometimes = sometimes;
+        this.mRarely = rarely;
+        this.mNever = never;
     }
 
     public String getQuestTitle() {
@@ -106,6 +108,41 @@ public class Question {
 
     public void setNever(String never) {
         mNever = never;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mQuestTitle);
+        dest.writeString(this.mNumber);
+        dest.writeString(this.mAlways);
+        dest.writeString(this.mUsually);
+        dest.writeString(this.mSometimes);
+        dest.writeString(this.mRarely);
+        dest.writeString(this.mNever);
+    }
+
+    public static final Parcelable.Creator CREATOR= new Parcelable.Creator(){
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+        @Override
+        public Question[] newArray(int i) {
+            return new Question[i];
+        }
+    };
+    public Question(Parcel in){
+        mQuestTitle = in.readString();
+        mNumber = in.readString();
+        mAlways = in.readString();
+        mUsually = in.readString();
+        mSometimes = in.readString();
+        mRarely = in.readString();
+        mNever = in.readString();
     }
 
 }

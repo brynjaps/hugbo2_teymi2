@@ -15,12 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import is.hi.gordon.ApiActivity;
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mUsername;
     EditText mPassword;
     TextView error;
+    Question[] questGet;
+    Question[] questList;
 
     public static final String TAG = LoginActivity .class.getSimpleName();
 
@@ -64,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getLogin();
+                questList = getQuestion();
+
                 Log.d("UserCall", "Usercall");
             }
         });
@@ -207,6 +213,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (usersInfo[i].getUsername() == gordonUser) {
                     Log.d("lykkja 5", "lykkja 5");
                     Intent intent = new Intent(LoginActivity.this, QuestActivity.class);
+                    intent.putParcelableArrayListExtra("data",(ArrayList) questList);
                     startActivity(intent);
                     finish();
                 } else {
@@ -220,7 +227,104 @@ public class LoginActivity extends AppCompatActivity {
 
         return null;
     }
-            @Override
+
+    //gets all the questions
+    private ArrayList<Question> getQuest(String jsonData) throws JSONException {
+        Log.d("another success", "another success");
+        JSONArray quest = new JSONArray(jsonData);
+
+        Log.d("quest", "quest:" + quest);
+
+        ArrayList<Question> questions = new Question[quest.length()];
+
+        for(int i=0; i<quest.length();i++)
+        {
+            Log.d("lykkja","lykkja");
+            JSONObject jsonUser = quest.getJSONObject(i);
+            Question question = new Question();
+            question.setQuestTitle(jsonUser.getString("question"));
+            question.setNumber(jsonUser.getString("number"));
+            question.setAlways(jsonUser.getString("always"));
+            question.setUsually(jsonUser.getString("usually"));
+            question.setSometimes(jsonUser.getString("sometimes"));
+            question.setRarely(jsonUser.getString("rarely"));
+            question.setNever(jsonUser.getString("never"));
+            questions.add(question);
+            Log.d("lykkja 2", "lykkja búin");
+        }
+        Log.d("questions", "array questions: " + questions);
+        Log.d("asList","asList: " + Arrays.asList(questions));
+        return Arrays.asList(questions);
+    }
+
+    public ArrayList<Question> getQuestion() {
+        String scoreUrl = "https://gordonveftjon.herokuapp.com/api/questionstext/";
+        if(isNetworkAvailable()) {
+            // toggleRefresh();
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(scoreUrl)
+                    .build();
+
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d("fail", "getQu-fail");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                        }
+                    });
+                    try {
+                        final String jsonData = response.body().string();
+                        Log.v(TAG, jsonData);
+                        if (response.isSuccessful()) {
+                            Log.d("success", "success");
+                            System.out.println(jsonData);
+                            questGet = getQuest(jsonData);
+                            //parseScoreDetails(jsonData);
+                            //We are not on main thread
+                            //Need to call this method and pass a new Runnable thread
+                            //to be able to update the view.
+                           /* runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("4th succcess", "4th success");
+                                    //Call the method to update the view.
+                                    try {
+                                        Log.d("3rd success","3rd success");
+                                        //questGet = getQuest(jsonData);
+                                        Log.d("getQuest", "getQuest: " + questGet);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });*/
+                        } else {
+                            Log.d("else fail", "getQu-else fail");
+                        }
+                    } catch (IOException e) {
+                        Log.e(TAG, "Exception caught: ", e);
+                    } /*catch (JSONException e) {
+                        Log.e(TAG, "JSON caught: ", e);
+                    }*/ catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        else {
+            //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
+        }
+        return questGet;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         //inflate the menu, this adds items to the action bar if it is present
