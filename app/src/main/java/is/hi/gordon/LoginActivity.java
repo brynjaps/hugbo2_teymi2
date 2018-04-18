@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText mUsername;
     EditText mPassword;
     TextView error;
-    Question[] questGet;
-    Question[] questList;
+    //ArrayList<Question> questGet = new ArrayList<>();
+    //ArrayList<Question> questList = new ArrayList<>();
 
     public static final String TAG = LoginActivity .class.getSimpleName();
 
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getLogin();
-                questList = getQuestion();
+                //questList = getQuestion();
 
                 Log.d("UserCall", "Usercall");
             }
@@ -213,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (usersInfo[i].getUsername() == gordonUser) {
                     Log.d("lykkja 5", "lykkja 5");
                     Intent intent = new Intent(LoginActivity.this, QuestActivity.class);
-                    intent.putParcelableArrayListExtra("data",(ArrayList) questList);
+                    //intent.putParcelableArrayListExtra("questList", questList);
                     startActivity(intent);
                     finish();
                 } else {
@@ -229,13 +229,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //gets all the questions
-    private ArrayList<Question> getQuest(String jsonData) throws JSONException {
+    /*private ArrayList<Question> getQuest(String jsonData) throws JSONException {
         Log.d("another success", "another success");
         JSONArray quest = new JSONArray(jsonData);
 
         Log.d("quest", "quest:" + quest);
 
-        ArrayList<Question> questions = new Question[quest.length()];
+        ArrayList<Question> questions = new ArrayList<>();
 
         for(int i=0; i<quest.length();i++)
         {
@@ -254,7 +254,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         Log.d("questions", "array questions: " + questions);
         Log.d("asList","asList: " + Arrays.asList(questions));
-        return Arrays.asList(questions);
+        return questions;
     }
 
     public ArrayList<Question> getQuestion() {
@@ -305,14 +305,14 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 }
                             });*/
-                        } else {
+                       /* } else {
                             Log.d("else fail", "getQu-else fail");
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
-                    }*/ catch (JSONException e) {
+                    }*/ /*catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -322,7 +322,7 @@ public class LoginActivity extends AppCompatActivity {
             //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
         return questGet;
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -35,17 +35,6 @@
     <string name="welcome">Velkominn í Gordon</string>
     <string name="info">Vinnsamlegast fylltu út allar upplýsingarnar hér að neðan og svaraðu svo öllum spurningunum samviskusamlega.</string>
     <string name="btn_next">Áfram</string>
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="btn_getQuest">Ná í spurningar</string>
 
 </resources>
