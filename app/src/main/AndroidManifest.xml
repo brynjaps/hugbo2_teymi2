@@ -9,6 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,6 +33,9 @@
         </activity>
         <activity android:name=".AdminActivity"
             android:parentActivityName=".LoginActivity">
+        </activity>
+        <activity android:name=".ApiActivity"
+            android:parentActivityName=".AdminActivity">
         </activity>
     </application>
 

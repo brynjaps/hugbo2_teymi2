@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //get all questions
-    public List<Question> getAllQuest () {
+    /*public List<Question> getAllQuest () {
         List<Question> questList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -141,7 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return questList;
-    }
+    }*/
 
     //get score of users answer
     public int usersScore(String answer, int id) {

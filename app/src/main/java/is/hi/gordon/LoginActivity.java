@@ -197,7 +197,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("lykkja 2", "lykkja 2" + user);
             Log.d("lykkja 2", "lykkja 2" + password);
 
-
             if(usersInfo[i].getUsername().equals(user) && usersInfo[i].getPassword().equals(password)) {
                 Log.d("lykkja 3", "lykkja 3");
                 if (usersInfo[i].getUsername() == admin) {

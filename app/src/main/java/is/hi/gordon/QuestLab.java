@@ -24,8 +24,8 @@ public interface QuestLab {
     @Query("SELECT * FROM questions")
     List<Question> getQuest();
 
-    @Query("SELECT * FROM questions WHERE mId = :id")
-    Question getQuest (Integer id);
+    @Query("SELECT * FROM questions WHERE mNumber = :number")
+    Question getQuest (String number);
 
     @Insert
     void insertAll(Question... question);
