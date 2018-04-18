@@ -75,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                 //gets all users that match the one put in and also the password put in
                 //userArray = dbHelp.getAdmin(user, pass);
 
+                ApiActivity apiActivity = new ApiActivity();
+
                 //when data from database has been successfully imported go to AdminActivity class
                 if(user.equals("admin") && pass.equals("123")) {
                     Intent intent = new Intent(LoginActivity.this, ApiActivity.class);

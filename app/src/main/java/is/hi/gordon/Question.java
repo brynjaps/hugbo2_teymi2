@@ -15,47 +15,42 @@ import android.support.annotation.NonNull;
 @Entity(tableName="questions")
 public class Question {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
-    private Integer mId;
-    @ColumnInfo(name = "questTitle")
+    private String mNumber;
+    @ColumnInfo(name = "question")
     private String mQuestTitle;
     @ColumnInfo(name = "always")
-    private Integer mAlways;
+    private String mAlways;
     @ColumnInfo(name = "usually")
-    private Integer mUsually;
+    private String mUsually;
     @ColumnInfo(name="sometimes")
-    private  Integer mSometimes;
+    private  String mSometimes;
     @ColumnInfo(name="rarely")
-    private Integer mRarely;
+    private String mRarely;
     @ColumnInfo(name="never")
-    private  Integer mNever;
+    private  String mNever;
 
     public Question() {
-        mId = 0;
         mQuestTitle = "";
-        mAlways = 0;
-        mUsually =0;
-        mSometimes = 0;
-        mRarely = 0;
-        mNever = 0;
+        mNumber = "";
+        mAlways = "";
+        mUsually ="";
+        mSometimes = "";
+        mRarely = "";
+        mNever = "";
     }
 
-    public Question (String question, Integer always, Integer usually, Integer sometimes, Integer
-                     rarely, Integer never) {
+    public Question (String question, String number, String always, String usually, String sometimes, String
+                     rarely, String never) {
         mQuestTitle = question;
+        mNumber = number;
         mAlways = always;
         mUsually = usually;
         mSometimes = sometimes;
         mRarely = rarely;
         mNever = never;
     }
-
-    public Integer getId() {
-        return mId;
-    }
-
-    public void setId(Integer id) {mId = id;}
 
     public String getQuestTitle() {
         return mQuestTitle;
@@ -65,43 +60,51 @@ public class Question {
         mQuestTitle = question;
     }
 
-    public Integer getAlways() {
+    public String getNumber() {
+        return mNumber;
+    }
+
+    public void setNumber(String number) {
+        mNumber = number;
+    }
+
+    public String getAlways() {
         return mAlways;
     }
 
-    public void setAlways(Integer always) {
+    public void setAlways(String always) {
         mAlways = always;
     }
 
-    public Integer getUsually() {
+    public String getUsually() {
         return mUsually;
     }
 
-    public void setUsually(Integer usually) {
+    public void setUsually(String usually) {
         mUsually = usually;
     }
 
-    public Integer getSometimes() {
+    public String getSometimes() {
         return mSometimes;
     }
 
-    public void setSometimes(Integer sometimes) {
+    public void setSometimes(String sometimes) {
         mSometimes = sometimes;
     }
 
-    public Integer getRarely() {
+    public String getRarely() {
         return mRarely;
     }
 
-    public void setRarely(Integer rarely) {
+    public void setRarely(String rarely) {
         mRarely = rarely;
     }
 
-    public Integer getNever() {
+    public String getNever() {
         return mNever;
     }
 
-    public void setNever(Integer never) {
+    public void setNever(String never) {
         mNever = never;
     }
 

@@ -2,60 +2,60 @@
   "formatVersion": 1,
   "database": {
     "version": 5,
-    "identityHash": "5709660a8500186ba11ed32873ef2ba2",
+    "identityHash": "91982bc4153f4a38aafff3d503a73777",
     "entities": [
       {
         "tableName": "questions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `questTitle` TEXT, `always` INTEGER, `usually` INTEGER, `sometimes` INTEGER, `rarely` INTEGER, `never` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mNumber` TEXT NOT NULL, `question` TEXT, `always` TEXT, `usually` TEXT, `sometimes` TEXT, `rarely` TEXT, `never` TEXT, PRIMARY KEY(`mNumber`))",
         "fields": [
           {
-            "fieldPath": "mId",
-            "columnName": "mId",
-            "affinity": "INTEGER",
+            "fieldPath": "mNumber",
+            "columnName": "mNumber",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
             "fieldPath": "mQuestTitle",
-            "columnName": "questTitle",
+            "columnName": "question",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "mAlways",
             "columnName": "always",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "mUsually",
             "columnName": "usually",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "mSometimes",
             "columnName": "sometimes",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "mRarely",
             "columnName": "rarely",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "mNever",
             "columnName": "never",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "mId"
+            "mNumber"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -63,7 +63,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"5709660a8500186ba11ed32873ef2ba2\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"91982bc4153f4a38aafff3d503a73777\")"
     ]
   }
 }
