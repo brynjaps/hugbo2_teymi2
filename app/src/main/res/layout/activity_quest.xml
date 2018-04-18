@@ -11,6 +11,13 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" />
+
         <TextView
             android:id="@+id/numb_quest"
             android:layout_width="match_parent"
@@ -79,5 +86,17 @@
             android:background="@android:color/white"
             android:text="@string/btn_next"
             android:textSize="18dp"/>
+
+        <Button
+            android:id="@+id/answerQuest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Svara spurningum" />
+
+        <Button
+            android:id="@+id/getQuestBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_getQuest" />
     </LinearLayout>
 </RelativeLayout>

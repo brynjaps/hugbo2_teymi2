@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,8 +41,9 @@ import okhttp3.Response;
  */
 
 public class QuestActivity extends Activity{
-    Question[] questList;
+    //ArrayList<Question> questList = new ArrayList<>();
     Question[] questGet;
+    Question[] questList;
     int scoreUser = 0;
     int score = 0;
     int questId = 1;
@@ -48,11 +51,12 @@ public class QuestActivity extends Activity{
     int currentQuestInt = 0;
     String[] newUser;
 
-    String currentQuest;
+    String currentQuest = "wait";
     TextView numbQuest;
     TextView questLabel;
     RadioButton always, usually, sometimes, rarely, never;
-    Button nextButton;
+    Button nextButton, getQuestBtn, answerQuestBtn;
+    ProgressBar spinner;
 
     public static final String TAG = ApiActivity .class.getSimpleName();
 
@@ -71,10 +75,44 @@ public class QuestActivity extends Activity{
         rarely = (RadioButton)findViewById(R.id.rarely);
         never = (RadioButton)findViewById(R.id.never);
         nextButton = (Button)findViewById(R.id.btn_next);
+        getQuestBtn = (Button)findViewById(R.id.getQuestBtn);
+        answerQuestBtn = (Button)findViewById(R.id.answerQuest);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+
+        Bundle bundle = getIntent().getExtras();
+        final String[] newUser = bundle.getStringArray("newUser");
+
+        spinner.setVisibility(View.GONE);
+
+        nextButton.setEnabled(false);
+        answerQuestBtn.setEnabled(false);
+
+        /*if(questList != null) {
+            currentQuest = questList[0].getNumber();
+            currentQuestInt = Integer.parseInt(currentQuest);
+
+            Bundle bundle = getIntent().getExtras();
+            final String[] newUser = bundle.getStringArray("newUser");
+
+            //changes to the next question
+            ChangeQuest();
+        }*/
+
 
         //gets all questions and puts them in the list
-        Bundle data = getIntent().getExtras();
-      //  questList = (Question[]) data.getParcelable("questList");
+
+        //Bundle data = getIntent().getExtras();
+        //questList = data.getParcelable("questList");
+
+       /* synchronized (currentQuest) {
+            while(questList == null) {
+                try {
+                    currentQuest.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         if (questList == null) {
             return;
@@ -94,10 +132,45 @@ public class QuestActivity extends Activity{
 
         //changes to the next question
         ChangeQuest();
+*/
+        ((Button) findViewById(R.id.getQuestBtn)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                questList = getQuestion();
+                Log.d("spurninga takki", "spurninga takki");
+
+                if(questList == null) {
+                    spinner.setVisibility(View.VISIBLE);
+                } else spinner.setVisibility(View.GONE);
+
+                answerQuestBtn.setEnabled(true);
+            }
+        });
+
+        ((Button) findViewById(R.id.answerQuest)).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d("questListNow", "questListNow" + questList);
+                if(questList != null) {
+                    currentQuest = questList[0].getNumber();
+                    currentQuestInt = Integer.parseInt(currentQuest);
+
+                    //changes to the next question
+                    ChangeQuest();
+
+                }
+                answerQuestBtn.setEnabled(false);
+                getQuestBtn.setEnabled(false);
+                nextButton.setEnabled(true);
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                getQuestBtn.setEnabled(false);
+                answerQuestBtn.setEnabled(false);
 
                 RadioGroup radioGroup = (RadioGroup)findViewById(R.id.options);
                 RadioButton answer = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
@@ -130,11 +203,17 @@ public class QuestActivity extends Activity{
                 }
 
                 //add the score from option picked to the score the player has
-                score += getUserScore(answerString, String.valueOf(currentQuestInt));
+                if(getUserScore(answerString, String.valueOf(currentQuestInt-2)) == 0)
+                score += getUserScore(answerString, String.valueOf(currentQuestInt-2));
+               // Log.d("bla questionNumber", "questionNumber: " + questList[currentQuestInt-2].getNumber());
+                Log.d("bla questionName", "questionName: " + questList[currentQuestInt-2].getQuestTitle());
+                Log.d("bla answer", "anwer: " + answerString);
+                Log.d("bla currentQuestInt", "CurrentQuestInt: " + currentQuestInt);
+                Log.d("bla score","score: " + score);
 
                 //if we haven't gone through every question we go to the next one, else send your
                 //score to the result page
-                if(currentQuestInt < questList.length) { //will be changed to 28, but currently only 2 questions in database
+                if(currentQuestInt+3 < 31){//will be changed to 28, but currently only 2 questions in database
                     ChangeQuest();
                 } else {
                     Intent intent = new Intent(QuestActivity.this, ResultActivity.class);
@@ -164,13 +243,15 @@ public class QuestActivity extends Activity{
 
     //changes to the next question
     private void ChangeQuest() {
-        numbQuest.setText(currentQuestInt + "/" + totalQuest);
-        questLabel.setText(currentQuestInt+ ". " + questList[currentQuestInt].getQuestTitle());
-        currentQuestInt++;
+        if(questList != null) {
+            numbQuest.setText(currentQuestInt + "/" + totalQuest);
+            questLabel.setText(currentQuestInt+ ". " + questList[currentQuestInt].getQuestTitle());
+            currentQuestInt++;
+        }
     }
 
     //gets all the questions
-    /*private Question[] getQuest(String jsonData) throws JSONException {
+    private Question[] getQuest(String jsonData) throws JSONException {
         Log.d("another success", "another success");
         JSONArray quest = new JSONArray(jsonData);
 
@@ -246,14 +327,14 @@ public class QuestActivity extends Activity{
                                     }
                                 }
                             });*/
-                        /*} else {
+                        } else {
                             Log.d("else fail", "getQu-else fail");
                         }
                     } catch (IOException e) {
                         Log.e(TAG, "Exception caught: ", e);
                     } /*catch (JSONException e) {
                         Log.e(TAG, "JSON caught: ", e);
-                    }*/ /*catch (JSONException e) {
+                    }*/ catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -263,7 +344,7 @@ public class QuestActivity extends Activity{
             //  Toast.makeText(this, R.string.network_unavailable_message, Toast.LENGTH_LONG).show();
         }
         return questGet;
-    }*/
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -336,7 +417,7 @@ public class QuestActivity extends Activity{
         return  scoreUser;
     }
 
-    //gets the score of a Company and returns its median of the scores
+
     private Integer getAnswer(String jsonData, String answerString, String number) throws JSONException {
         JSONArray quest = new JSONArray(jsonData);
 
@@ -363,26 +444,31 @@ public class QuestActivity extends Activity{
                 if(answerString.equals("always")) {
                     String alwaysAnswer = questions[i].getAlways();
                     int alwaysInt = Integer.parseInt(alwaysAnswer);
+                    Log.d("bla always", "bla always: " + alwaysInt);
                     return alwaysInt;
                 }
                 if(answerString.equals("usually")) {
                     String usuallyAnswer = questions[i].getUsually();
                     int usuallyInt = Integer.parseInt(usuallyAnswer);
+                    Log.d("bla usuallyInt", "bla usuallyInt: " + usuallyInt);
                     return usuallyInt;
                 }
                 if(answerString.equals("sometimes")) {
                     String sometimesAnswer = questions[i].getSometimes();
                     int sometimesInt = Integer.parseInt(sometimesAnswer);
+                    Log.d("bla sometimesInt", "bla sometimesInt: " + sometimesInt);
                     return sometimesInt;
                 }
                 if(answerString.equals("rarely")) {
                     String rarelyAnswer = questions[i].getRarely();
                     int rarelyInt = Integer.parseInt(rarelyAnswer);
+                    Log.d("bla rarelyInt", "bla rarelyInt: " + rarelyInt);
                     return rarelyInt;
                 }
                 if(answerString.equals("never")) {
                     String neverAnswer = questions[i].getNever();
                     int neverInt = Integer.parseInt(neverAnswer);
+                    Log.d("bla neverInt", "bla neverInt: " + neverInt);
                     return neverInt;
                 }
             }
